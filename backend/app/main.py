@@ -22,7 +22,7 @@ async def startup_event():
     try:
         load_data()
     except Exception as e:
-        print(f"✗ Failed to load data: {e}")
+        print(f"[ERROR] Failed to load data: {e}")
         raise
 
 

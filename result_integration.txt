@@ -1,0 +1,29 @@
+============================================================
+LOADING DATA FROM ML FOLDER
+============================================================
+Loading stations data from C:\Users\Admin\Desktop\Ecology\ecoair-backend\EcoAir-Insight\ml\data\processed...
+Loading AQI data...
+Loading 5-year predictions...
+[WARNING] ML model file is empty or invalid at C:\Users\Admin\Desktop\Ecology\ecoair-backend\EcoAir-Insight\ml\models\saved_model.pkl
+[OK] All data and models loaded successfully
+
+============================================================
+TESTING API ENDPOINTS WITH ML DATA
+============================================================
+
+1. Testing current AQI endpoint (Delhi, India):
+   [OK] Station: Mundka, Delhi - DPCC
+   [OK] AQI: 507
+   [OK] PM2.5: 268.1 ug/m3
+   [OK] Health Risk: Severe
+
+2. Testing 5-year predictions endpoint:
+   [OK] Station: Mundka, Delhi - DPCC
+   [OK] 5-Year Forecast (first 5 months): [459.82, 461.05, 433.83, 417.71, 391.39]
+
+============================================================
+[OK] INTEGRATION TEST SUCCESSFUL!
+  - Data loaded from: ml/data/processed/
+  - 5-year predictions enabled
+  - API endpoints working with ML data
+============================================================

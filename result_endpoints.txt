@@ -1,0 +1,29 @@
+Loading data...
+Loading stations data from C:\Users\Admin\Desktop\Ecology\ecoair-backend\EcoAir-Insight\ml\data\processed...
+Loading AQI data...
+Loading 5-year predictions...
+[WARNING] ML model file is empty or invalid at C:\Users\Admin\Desktop\Ecology\ecoair-backend\EcoAir-Insight\ml\models\saved_model.pkl
+[OK] All data and models loaded successfully
+
+============================================================
+TESTING REFACTORED GET ENDPOINTS
+============================================================
+
+1. Testing GET /api/current-aqi
+   Status: 200
+   AQI: 507
+   Health Risk: Severe
+   [OK] GET request working!
+
+2. Testing GET /api/predict
+   Status: 200
+   Forecast length: 5 months
+   First 5 months: [459.82, 461.05, 433.83, 417.71, 391.39]
+   [OK] GET request working!
+
+3. Testing error handling (invalid latitude)
+   Status: 422
+
+============================================================
+[OK] ALL TESTS PASSED - GET ENDPOINTS WORKING!
+============================================================

@@ -2,11 +2,6 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 
-class LocationRequest(BaseModel):
-    latitude: float
-    longitude: float
-
-
 class CurrentAQIResponse(BaseModel):
     location: dict
     aqi: int
@@ -19,7 +14,7 @@ class CurrentAQIResponse(BaseModel):
 
 class PredictionResponse(BaseModel):
     location: dict
-    forecast_5_years: List[int]
+    forecast_5_years: List[float]  # Changed from int to float for accuracy
 
 
 class ErrorResponse(BaseModel):
