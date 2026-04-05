@@ -6,6 +6,8 @@ from app.services.aqi_service import get_current_aqi
 from app.services.prediction_service import get_prediction
 from app.services.ai_service import generate_ai_insights
 
+
+
 app = FastAPI()
 
 # CORS (already added earlier but keeping clean)
@@ -17,6 +19,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# TODO ADD THE GENERIC PORT EXTRACTION AND RUN THROUGH THE SPECIFIED PORT 
 
 @app.get("/analysis")
 def get_analysis(lat: float, lon: float):

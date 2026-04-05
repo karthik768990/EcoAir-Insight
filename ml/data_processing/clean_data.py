@@ -2,12 +2,16 @@ import pandas as pd
 import glob
 import os
 
+BASE_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../../")
+)
+
 def process_raw_data():
     print("Starting Pan-India data extraction (Reading ALL tabs)...")
     
     # Your exact paths
-    raw_dir = r"C:\Users\Karthik Tamarapalli\github_new_pulls\EcoAir-Insight\ml\data\raw_data"
-    processed_dir = r"C:\Users\Karthik Tamarapalli\github_new_pulls\EcoAir-Insight\ml\data\processed"
+    raw_dir = os.path.join(BASE_DIR,"ml/data/raw_data")
+    processed_dir = os.path.join(BASE_DIR,"ml/data/processed")
     os.makedirs(processed_dir, exist_ok=True)
     
     all_excel_files = glob.glob(os.path.join(raw_dir, '*.xlsx'))

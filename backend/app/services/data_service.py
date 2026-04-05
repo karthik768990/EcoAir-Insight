@@ -2,10 +2,14 @@ import pandas as pd
 import numpy as np
 import os
 
+BASE_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../../../")
+)
+
 print("Loading ML Data into Backend...")
 
+DATA_DIR = os.path.join(BASE_DIR,"ml/data/cleaned_data")
 # Absolute path to where your ML model saved the data
-DATA_DIR = r"C:\Users\Karthik Tamarapalli\github_new_pulls\EcoAir-Insight\ml\data\cleaned_data"
 
 try:
     STATIONS_DF = pd.read_csv(os.path.join(DATA_DIR, 'stations.csv'))
