@@ -7,7 +7,7 @@ def process_raw_data():
     
     # Your exact paths
     raw_dir = r"C:\Users\Karthik Tamarapalli\github_new_pulls\EcoAir-Insight\ml\data\raw_data"
-    processed_dir = r"C:\Users\Karthik Tamarapalli\github_new_pulls\EcoAir-Insight\ml\data\cleaned_data"
+    processed_dir = r"C:\Users\Karthik Tamarapalli\github_new_pulls\EcoAir-Insight\ml\data\processed"
     os.makedirs(processed_dir, exist_ok=True)
     
     all_excel_files = glob.glob(os.path.join(raw_dir, '*.xlsx'))
