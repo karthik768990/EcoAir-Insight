@@ -1,0 +1,256 @@
+.sidebar {
+    min-height: 100vh;
+    width: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #111114;
+    padding: 20px 10px;
+    color: #e0e0e0;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    flex-shrink: 0;
+    z-index: 100;
+}
+
+.sidebar-extended {
+    width: 220px;
+}
+
+/* ── Menu button ── */
+.sidebar .menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.55);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 auto;
+}
+.sidebar .menu-btn:hover {
+    background: rgba(236, 72, 153, 0.15);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+/* ── SVG icon defaults ── */
+.sidebar svg {
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+.sidebar .recent-entry:hover svg,
+.sidebar .new-chat:hover svg {
+    color: #f472b6;
+    transform: scale(1.1);
+}
+.sidebar .recent-entry.active svg {
+    color: #ec4899;
+}
+
+/* ── New Chat button ── */
+.sidebar .new-chat {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #e0e7ff;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar:not(.sidebar-extended) .new-chat {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 30px auto 0;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.sidebar.sidebar-extended .new-chat {
+    width: 100%;
+    margin-top: 30px;
+    padding: 10px 12px;
+    justify-content: flex-start;
+    border-radius: 12px;
+}
+.sidebar .new-chat:hover {
+    background: rgba(236, 72, 153, 0.08); /* slight subtle hover like recent entries */
+    transform: translateX(4px);
+}
+.sidebar:not(.sidebar-extended) .new-chat:hover {
+    transform: scale(1.1); /* no sideways movement when collapsed */
+}
+.sidebar .new-chat svg {
+    color: #f472b6;
+}
+
+.coming-soon-tag {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 2px 6px;
+    background: rgba(234, 179, 8, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(234, 179, 8, 0.25);
+    border-radius: 6px;
+    margin-left: auto;
+}
+
+/* ── Recent section ── */
+.sidebar .recent {
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease;
+}
+
+.sidebar .recent-title {
+    margin-top: 28px;
+    margin-bottom: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #f472b6;
+    opacity: 0.8;
+    padding-left: 12px;
+}
+
+/* ── Entry rows ── */
+.sidebar .recent-entry {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: 500;
+    position: relative;
+}
+
+.sidebar .recent-entry:hover {
+    background-color: rgba(236, 72, 153, 0.08);
+    color: #fff;
+    transform: translateX(4px);
+}
+
+.sidebar .recent-entry.active {
+    background: linear-gradient(90deg, rgba(79, 70, 229, 0.15), rgba(236, 72, 153, 0.08));
+    color: #e0e7ff;
+    border-left: 2px solid #ec4899;
+}
+
+.sidebar .recent-entry.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+.sidebar .recent-entry.disabled:hover {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+}
+.sidebar .recent-entry.disabled:hover svg {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.sidebar .recent-entry p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ── Badge (collapsed mode) ── */
+.icon-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    background: #ec4899;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    box-shadow: 0 2px 8px rgba(236, 72, 153, 0.5);
+    animation: popupFade 0.3s ease;
+}
+
+/* ── Count tag (expanded mode) ── */
+.count-tag {
+    margin-left: auto;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: rgba(236, 72, 153, 0.15);
+    color: #f472b6;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+}
+
+/* ── Bottom section ── */
+.sidebar .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.sidebar .bottom-item {
+    cursor: pointer;
+}
+
+/* ── Theme toggle ── */
+.theme-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.theme-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #f472b6;
+    padding: 3px 8px;
+    background: rgba(236, 72, 153, 0.12);
+    border-radius: 6px;
+}
+.theme-badge svg {
+    color: #ec4899 !important;
+    width: 14px;
+    height: 14px;
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
