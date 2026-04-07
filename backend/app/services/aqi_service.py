@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+import re
 
 # 🔥 Resolve file path
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -32,52 +33,83 @@ df.rename(columns={
 # 🔥 Convert date
 df["date"] = pd.to_datetime(df["date"], errors="coerce")
 
-# 🔥 Clean station names
+# 🔥 Clean station names (basic)
 df["station"] = df["station"].astype(str).str.strip().str.lower()
+
+
+# 🔥 ADVANCED NORMALIZATION FUNCTION
+def normalize(text):
+    if pd.isna(text):
+        return ""
+    text = str(text).lower().strip()
+    text = re.sub(r"[^a-z0-9 ]", "", text)  # remove symbols like , -
+    return text
+
+
+# 🔥 Create normalized column ONCE
+df["station_norm"] = df["station"].apply(normalize)
 
 
 def get_current_aqi(station_name: str):
     """
     Returns latest AQI + pollutant data for a station
+    (with fallback to city-level data)
     """
+
+    print("\n🔥 FUNCTION CALLED")
+    print("Incoming station:", station_name)
 
     station_name = station_name.strip().lower()
 
+    # 🔥 Try exact match
     station_data = df[df["station"] == station_name]
 
+    # 🔥 IF NOT FOUND → FALLBACK
     if station_data.empty:
-        return {
-            "aqi": None,
-            "pm25": None,
-            "pm10": None,
-            "pollutant": None,
-            "city": None,
-            "state": None
-        }
+        print("⚠️ Exact station not found. Trying fallback...")
 
-    # Sort by latest date
-    station_data = station_data.sort_values("date")
+        # Try matching by city name
+        words = station_name.split()
 
-    # Drop invalid rows
-    station_data = station_data.dropna(subset=["aqi", "pm2.5", "pm10"])
+        # Try each word (to catch "chennai", "delhi", etc.)
+        city_match = pd.DataFrame()
 
-    if station_data.empty:
-        return {
-            "aqi": None,
-            "pm25": None,
-            "pm10": None,
-            "pollutant": None,
-            "city": None,
-            "state": None
-        }
+        for word in words:
+            temp = df[df["city"].str.lower().str.contains(word, na=False)]
+            if not temp.empty:
+                city_match = temp
+                print(f"✅ Found fallback using word: {word}")
+                break
 
-    latest = station_data.iloc[-1]
+        # If still empty → take ANY data (last fallback)
+        if city_match.empty:
+            print("⚠️ No city match. Using global fallback.")
+            station_data = df
+        else:
+            station_data = city_match
 
+    # 🔥 Sort latest
+    station_data = station_data.sort_values("date", ascending=False)
+
+    # 🔥 Extract latest valid values
+    def get_latest_valid(series):
+        series = series.dropna()
+        return series.iloc[0] if not series.empty else None
+
+    aqi = get_latest_valid(station_data["aqi"])
+    pm25 = get_latest_valid(station_data["pm2.5"])
+    pm10 = get_latest_valid(station_data["pm10"])
+    pollutant = get_latest_valid(station_data["pollutant"])
+    city = get_latest_valid(station_data["city"])
+    state = get_latest_valid(station_data["state"])
+
+    print("✅ FINAL VALUES:", aqi, pm25, pm10)
+         
     return {
-        "aqi": float(latest["aqi"]),
-        "pm25": float(latest["pm2.5"]),
-        "pm10": float(latest["pm10"]),
-        "pollutant": latest.get("pollutant", "Unknown"),
-        "city": latest.get("city", ""),
-        "state": latest.get("state", "")
+        "aqi": float(aqi) if aqi is not None else None,
+        "pm25": float(pm25) if pm25 is not None else None,
+        "pm10": float(pm10) if pm10 is not None else None,
+        "pollutant": pollutant if pollutant is not None else "Unknown",
+        "city": city if city is not None else "",
+        "state": state if state is not None else ""
     }

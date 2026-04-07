@@ -19,7 +19,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# TODO ADD THE GENERIC PORT EXTRACTION AND RUN THROUGH THE SPECIFIED PORT 
 
 @app.get("/analysis")
 def get_analysis(lat: float, lon: float):
