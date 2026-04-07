@@ -119,3 +119,42 @@ body {
 * {
   transition: all 0.3s ease;
 }
+
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #334155;
+  border-top: 5px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  color: #60a5fa;
+  margin-top: 10px;
+}
+
+.markdown p {
+  margin: 5px 0;
+}
+
+.markdown strong {
+  color: #facc15;
+}
+
+.markdown ul {
+  padding-left: 20px;
+}
+
+.markdown li {
+  margin-bottom: 5px;
+}
