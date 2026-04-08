@@ -32,53 +32,36 @@ export default function MapPage() {
   return (
     <div style={{ position: "relative" }}>
       {/* 🌍 MAP ALWAYS VISIBLE */}
-      <motion.div
-  initial={{ scale: 1.1, filter: "blur(10px)" }}
-  animate={{
-    scale: showOverlay ? 1.1 : 1,
-    filter: showOverlay ? "blur(10px)" : "blur(0px)",
-  }}
-  transition={{ duration: 0.8 }}
->
-  <MapView onMapClick={handleClick} />
-</motion.div>
+      <MapView onMapClick={handleClick} />
 
       {/* 🔥 HERO OVERLAY */}
       {showOverlay && (
-  <motion.div
-    initial={{ opacity: 1, scale: 1 }}
-    animate={
-      showOverlay
-        ? { opacity: 1, scale: 1 }
-        : { opacity: 0, scale: 1.2 }
-    }
-    transition={{ duration: 0.8, ease: "easeInOut" }}
-    style={overlayStyle}
-  >
-    <motion.h1
-      initial={{ y: -30, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.2 }}
-    >
-      🌍 EcoAir Insight
-    </motion.h1>
+        <motion.div
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          style={overlayStyle}
+        >
+          <motion.h1
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+          >
+            🌍 EcoAir Insight
+          </motion.h1>
 
-    <p style={{ opacity: 0.8, marginBottom: "20px" }}>
-      AI-powered air quality intelligence across India
-    </p>
+          <p style={{ opacity: 0.8, marginBottom: "20px" }}>
+            AI-powered air quality intelligence across India
+          </p>
 
-    <motion.button
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
-      onClick={() => {
-        setTimeout(() => setShowOverlay(false), 700);
-      }}
-      style={buttonStyle}
-    >
-      Explore Map →
-    </motion.button>
-  </motion.div>
-)}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            onClick={() => setShowOverlay(false)}
+            style={buttonStyle}
+          >
+            Explore Map →
+          </motion.button>
+        </motion.div>
+      )}
 
       {/* 🔄 LOADER */}
       {loading && <Loader />}
