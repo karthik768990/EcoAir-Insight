@@ -50,7 +50,7 @@ export default function MapPage() {
     scale: showOverlay ? 1.05 : 1,
     filter: showOverlay ? "blur(6px)" : "blur(0px)",
   }}
-  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
 >
   <MapView onMapClick={handleClick} />
 </motion.div>

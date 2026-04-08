@@ -5,8 +5,6 @@ import { motion } from "framer-motion";
 import MapView from "../components/MapView";
 import InfoPanel from "../components/InfoPanel";
 import Loader from "../components/Loader";
-import Particles from "../components/Particles";
-import Navbar from "../components/Navbar";
 
 export default function MapPage() {
   const [data, setData] = useState(null);
@@ -32,9 +30,7 @@ export default function MapPage() {
   };
 
   return (
-    
     <div style={{ position: "relative" }}>
-      <Navbar/>
       {/* 🌍 MAP ALWAYS VISIBLE */}
       <motion.div
   initial={{ scale: 1.1, filter: "blur(10px)" }}
@@ -44,18 +40,9 @@ export default function MapPage() {
   }}
   transition={{ duration: 0.8 }}
 >
-  <motion.div
-  initial={{ scale: 1.05, filter: "blur(6px)" }}
-  animate={{
-    scale: showOverlay ? 1.05 : 1,
-    filter: showOverlay ? "blur(6px)" : "blur(0px)",
-  }}
-  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
->
   <MapView onMapClick={handleClick} />
 </motion.div>
-</motion.div>
-      <Particles/>
+
       {/* 🔥 HERO OVERLAY */}
       {showOverlay && (
   <motion.div
@@ -118,7 +105,7 @@ const overlayStyle = {
   // 🔥 NEW (NO DARK BOX)
   background: "linear-gradient(180deg, rgba(15,23,42,0.6), rgba(15,23,42,0.9))",
   backdropFilter: "blur(12px)",
-  overflow : "visible",
+
   zIndex: 999,
 };
 
@@ -129,10 +116,6 @@ const titleStyle = {
   WebkitBackgroundClip: "text",
   color: "transparent",
   marginBottom: "10px",
-
-  // 🔥 FIXES CUTTING
-  whiteSpace: "nowrap",
-  overflow: "visible",
 };
 
 const buttonStyle = {

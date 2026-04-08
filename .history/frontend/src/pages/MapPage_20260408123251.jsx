@@ -34,7 +34,6 @@ export default function MapPage() {
   return (
     
     <div style={{ position: "relative" }}>
-      <Navbar/>
       {/* 🌍 MAP ALWAYS VISIBLE */}
       <motion.div
   initial={{ scale: 1.1, filter: "blur(10px)" }}
@@ -45,17 +44,17 @@ export default function MapPage() {
   transition={{ duration: 0.8 }}
 >
   <motion.div
-  initial={{ scale: 1.05, filter: "blur(6px)" }}
+  initial={{ scale: 1.2, filter: "blur(15px)" }}
   animate={{
-    scale: showOverlay ? 1.05 : 1,
-    filter: showOverlay ? "blur(6px)" : "blur(0px)",
+    scale: showOverlay ? 1.2 : 1,
+    filter: showOverlay ? "blur(15px)" : "blur(0px)",
   }}
-  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+  transition={{ duration: 1 }}
 >
   <MapView onMapClick={handleClick} />
 </motion.div>
 </motion.div>
-      <Particles/>
+
       {/* 🔥 HERO OVERLAY */}
       {showOverlay && (
   <motion.div
@@ -118,7 +117,7 @@ const overlayStyle = {
   // 🔥 NEW (NO DARK BOX)
   background: "linear-gradient(180deg, rgba(15,23,42,0.6), rgba(15,23,42,0.9))",
   backdropFilter: "blur(12px)",
-  overflow : "visible",
+  overflow : visible,
   zIndex: 999,
 };
 

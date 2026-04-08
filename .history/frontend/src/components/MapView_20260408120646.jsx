@@ -3,19 +3,12 @@ import { useState } from "react";
 import "leaflet/dist/leaflet.css";
 
 function ClickHandler({ onClick, setPosition }) {
-  const map = useMapEvents({
+  useMapEvents({
     click(e) {
       setPosition(e.latlng);
-
-      // 🔥 ZOOM ANIMATION
-      map.flyTo(e.latlng, 10, {
-        duration: 1.5,
-      });
-
       onClick(e.latlng);
     },
   });
-
   return null;
 }
 
