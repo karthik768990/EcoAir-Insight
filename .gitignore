@@ -6,9 +6,7 @@
 .env.*
 *.env
 
-.env
-*.env
-.history/
+
 
 # =========================
 # 🐍 PYTHON (BACKEND)
