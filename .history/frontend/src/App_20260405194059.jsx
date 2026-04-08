@@ -1,11 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Landing from "./pages/Landing";
 import MapPage from "./pages/MapPage";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MapPage />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/map" element={<MapPage />} />
       </Routes>
     </BrowserRouter>
   );
