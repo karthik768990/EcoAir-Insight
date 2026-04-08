@@ -6,7 +6,7 @@
 .env.*
 *.env
 
-ml/data/processed/*
+ml/data/processed/cleaned_data.csv
 !ml/data/processed/.gitkeep
 
 # =========================
