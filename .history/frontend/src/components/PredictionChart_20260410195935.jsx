@@ -9,7 +9,7 @@ import {
 
 export default function PredictionChart({ data }) {
   return (
-    <div style={{ height: "220px", width: "100%" }}>
+    <div style={{ height: 200 }}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
           <XAxis dataKey="month" stroke="#ccc" />

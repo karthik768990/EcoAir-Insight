@@ -126,10 +126,3 @@ const value = {
   textAlign: "right",
   fontWeight: "500",
 };
-
-const header = {
-  marginBottom: "12px",
-  textAlign: "center",
-  paddingBottom: "8px",
-  borderBottom: "1px solid rgba(148, 163, 184, 0.2)",
-};

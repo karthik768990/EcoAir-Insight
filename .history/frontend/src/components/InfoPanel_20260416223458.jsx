@@ -62,9 +62,9 @@ style={panelStyle}
   <h4>Weather</h4>
 
   <div style={grid}>
-    {current?.temp && <><span style={label}>Temp</span><span style={value}>{current.temp}°C</span></>}
-    {current?.rh && <><span style={label}>Humidity</span><span style={value}>{current.rh}%</span></>}
-    {current?.ws && <><span style={label}>Wind</span><span style={value}>{current.ws}</span></>}
+    {current?.temp && <><span>Temp</span><span>{current.temp}°C</span></>}
+    {current?.rh && <><span>Humidity</span><span>{current.rh}%</span></>}
+    {current?.ws && <><span>Wind</span><span>{current.ws}</span></>}
   </div>
 </div>
   {/* ⚠️ HEALTH */}
@@ -96,12 +96,20 @@ style={panelStyle}
 
 /* 🎨 STYLES */
 const panelStyle = {
-  height: "100%",
-  padding: "12px",
-  borderRadius: "0px",
+  position: "relative",
+  top: 20,
+  right: 20,
+  width: "300px",
+  maxHeight: "85vh",
+  overflowY: "auto",
+  padding: "14px",
+  borderRadius: "14px",
 
-  background: "rgba(15, 23, 42, 0.95)",
-  color: "#e2e8f0",
+  background: "rgba(15, 23, 42, 0.75)", // lighter
+  backdropFilter: "blur(8px)",
+
+  boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+  zIndex: 1000,
 };
 
 const card = {
@@ -125,11 +133,4 @@ const label = {
 const value = {
   textAlign: "right",
   fontWeight: "500",
-};
-
-const header = {
-  marginBottom: "12px",
-  textAlign: "center",
-  paddingBottom: "8px",
-  borderBottom: "1px solid rgba(148, 163, 184, 0.2)",
 };

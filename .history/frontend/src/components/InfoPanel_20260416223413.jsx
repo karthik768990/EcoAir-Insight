@@ -51,10 +51,10 @@ style={panelStyle}
   <h4>Pollution</h4>
 
   <div style={grid}>
-    {current?.pm25 && <><span style={label}>PM2.5</span><span style={value}>{current.pm25}</span></>}
-    {current?.pm10 && <><span style={label}>PM10</span><span style={value}>{current.pm10}</span></>}
-    {current?.no2 && <><span style={label}>NO2</span><span style={value}>{current.no2}</span></>}
-    {current?.so2 && <><span style={label}>SO2</span><span style={value}>{current.so2}</span></>}
+    {current?.pm25 && <><span>PM2.5</span><span>{current.pm25}</span></>}
+    {current?.pm10 && <><span>PM10</span><span>{current.pm10}</span></>}
+    {current?.no2 && <><span>NO2</span><span>{current.no2}</span></>}
+    {current?.so2 && <><span>SO2</span><span>{current.so2}</span></>}
   </div>
 </div>
   {/* 🌦 WEATHER CARD */}
@@ -62,9 +62,9 @@ style={panelStyle}
   <h4>Weather</h4>
 
   <div style={grid}>
-    {current?.temp && <><span style={label}>Temp</span><span style={value}>{current.temp}°C</span></>}
-    {current?.rh && <><span style={label}>Humidity</span><span style={value}>{current.rh}%</span></>}
-    {current?.ws && <><span style={label}>Wind</span><span style={value}>{current.ws}</span></>}
+    {current?.temp && <><span>Temp</span><span>{current.temp}°C</span></>}
+    {current?.rh && <><span>Humidity</span><span>{current.rh}%</span></>}
+    {current?.ws && <><span>Wind</span><span>{current.ws}</span></>}
   </div>
 </div>
   {/* ⚠️ HEALTH */}
@@ -96,12 +96,20 @@ style={panelStyle}
 
 /* 🎨 STYLES */
 const panelStyle = {
-  height: "100%",
-  padding: "12px",
-  borderRadius: "0px",
+  position: "relative",
+  top: 20,
+  right: 20,
+  width: "300px",
+  maxHeight: "85vh",
+  overflowY: "auto",
+  padding: "14px",
+  borderRadius: "14px",
 
-  background: "rgba(15, 23, 42, 0.95)",
-  color: "#e2e8f0",
+  background: "rgba(15, 23, 42, 0.75)", // lighter
+  backdropFilter: "blur(8px)",
+
+  boxShadow: "0 10px 30px rgba(0,0,0,0.4)",
+  zIndex: 1000,
 };
 
 const card = {
@@ -114,22 +122,6 @@ const card = {
 const grid = {
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
-  gap: "6px",
-  fontSize: "0.9rem",
-};
-
-const label = {
-  opacity: 0.6,
-};
-
-const value = {
-  textAlign: "right",
-  fontWeight: "500",
-};
-
-const header = {
-  marginBottom: "12px",
-  textAlign: "center",
-  paddingBottom: "8px",
-  borderBottom: "1px solid rgba(148, 163, 184, 0.2)",
+  gap: "4px",
+  fontSize: "0.85rem",
 };
