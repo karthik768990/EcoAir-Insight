@@ -13,13 +13,6 @@ const getAQIColor = (aqi) => {
   if (aqi <= 150) return "#f97316";
   return "#ef4444";
 };
-
-const sectionTitle = (color) => ({
-  color: color,
-  fontWeight: "600",
-  marginBottom: "6px",
-});
-
 return (
 <motion.div
 initial={{ x: 300, opacity: 0 }}

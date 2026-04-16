@@ -13,13 +13,6 @@ const getAQIColor = (aqi) => {
   if (aqi <= 150) return "#f97316";
   return "#ef4444";
 };
-
-const sectionTitle = (color) => ({
-  color: color,
-  fontWeight: "600",
-  marginBottom: "6px",
-});
-
 return (
 <motion.div
 initial={{ x: 300, opacity: 0 }}
@@ -82,14 +75,12 @@ style={panelStyle}
   </div>
 
   {/* 🧠 AI INSIGHTS */}
-<div style={card}>
-  <h3 style={sectionTitle("#a78bfa")}>🧠 AI Insights</h3>
-
-  <div style={aiBox} className="markdown">
-    <ReactMarkdown>{data.ai_insights}</ReactMarkdown>
+  <div style={card}>
+    <h3   style={{ color: "#a78bfa" }}>AI Insights</h3>
+    <div style={{ fontSize: "0.85rem", lineHeight: "1.5" }}>
+      <ReactMarkdown>{data.ai_insights}</ReactMarkdown>
+    </div>
   </div>
-</div>
-
 
   {/* 📈 GRAPH */}
   {data.prediction?.length > 0 && (
@@ -146,11 +137,3 @@ const header = {
   borderBottom: "1px solid rgba(148, 163, 184, 0.2)",
 };
 
-const aiBox = {
-  background: "linear-gradient(135deg, rgba(168,85,247,0.15), rgba(59,130,246,0.1))",
-  padding: "10px",
-  borderRadius: "10px",
-  border: "1px solid rgba(168,85,247,0.2)",
-  fontSize: "0.85rem",
-  lineHeight: "1.5",
-};

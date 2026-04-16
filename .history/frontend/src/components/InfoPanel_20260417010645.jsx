@@ -13,13 +13,6 @@ const getAQIColor = (aqi) => {
   if (aqi <= 150) return "#f97316";
   return "#ef4444";
 };
-
-const sectionTitle = (color) => ({
-  color: color,
-  fontWeight: "600",
-  marginBottom: "6px",
-});
-
 return (
 <motion.div
 initial={{ x: 300, opacity: 0 }}
@@ -85,7 +78,7 @@ style={panelStyle}
 <div style={card}>
   <h3 style={sectionTitle("#a78bfa")}>🧠 AI Insights</h3>
 
-  <div style={aiBox} className="markdown">
+  <div style={aiBox}>
     <ReactMarkdown>{data.ai_insights}</ReactMarkdown>
   </div>
 </div>
