@@ -1,25 +1,23 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-
 import LatLonSearch from "../components/LatLonSearch";
 import MapView from "../components/MapView";
 import InfoPanel from "../components/InfoPanel";
 import Loader from "../components/Loader";
 import Particles from "../components/Particles";
 import Navbar from "../components/Navbar";
+import { useRef, useState } from "react";
+
+
 
 export default function MapPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
-  const [markerPosition, setMarkerPosition] = useState(null);
-
-  const mapRef = useRef();
 
   const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
-  // 🔥 MAP CLICK HANDLER
   const handleClick = async (latlng) => {
     setLoading(true);
     setData(null);
@@ -28,35 +26,6 @@ export default function MapPage() {
       const res = await axios.get(
         `${BASE_URL}/analysis?lat=${latlng.lat}&lon=${latlng.lng}`
       );
-
-      setData(res.data);
-      setMarkerPosition([latlng.lat, latlng.lng]);
-    } catch (err) {
-      console.error(err);
-    }
-
-    setLoading(false);
-  };
-
-  // 🔥 LAT-LON SEARCH HANDLER
-  const handleLatLonSearch = async (lat, lon) => {
-    setLoading(true);
-    setData(null);
-
-    try {
-      // Move map
-      if (mapRef.current) {
-        mapRef.current.flyTo([lat, lon], 10);
-      }
-
-      // Update marker
-      setMarkerPosition([lat, lon]);
-
-      // Call backend
-      const res = await axios.get(
-        `${BASE_URL}/analysis?lat=${lat}&lon=${lon}`
-      );
-
       setData(res.data);
     } catch (err) {
       console.error(err);
@@ -82,18 +51,10 @@ export default function MapPage() {
           style={{
             width: data ? "70%" : "100%",
             height: "100%",
-            transition: "width 0.4s ease",
-            position: "relative"
+            transition: "width 0.4s ease"
           }}
         >
-          <MapView
-            onMapClick={handleClick}
-            markerPosition={markerPosition}
-            mapRef={mapRef}
-          />
-
-          {/* 🔥 LAT LON SEARCH (BOTTOM LEFT) */}
-          <LatLonSearch onSearch={handleLatLonSearch} />
+          <MapView onMapClick={handleClick} />
         </motion.div>
 
         {/* 📊 PANEL */}
@@ -159,11 +120,14 @@ const overlayStyle = {
   left: 0,
   width: "100%",
   height: "100%",
+
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+
   background: "rgba(15, 23, 42, 0.6)",
   backdropFilter: "blur(6px)",
+
   zIndex: 999,
 };
 

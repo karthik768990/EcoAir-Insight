@@ -46,7 +46,7 @@ export default function MapPage() {
     try {
       // Move map
       if (mapRef.current) {
-        mapRef.current.flyTo([lat, lon], 10);
+        mapRef.current.setView([lat, lon], 10);
       }
 
       // Update marker

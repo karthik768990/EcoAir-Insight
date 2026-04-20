@@ -39,31 +39,20 @@ export default function MapPage() {
   };
 
   // 🔥 LAT-LON SEARCH HANDLER
-  const handleLatLonSearch = async (lat, lon) => {
-    setLoading(true);
-    setData(null);
+const handleLatLonSearch = (lat, lon) => {
+  // 🔥 simulate map click
+  handleClick({
+    lat,
+    lng: lon
+  });
 
-    try {
-      // Move map
-      if (mapRef.current) {
-        mapRef.current.flyTo([lat, lon], 10);
-      }
-
-      // Update marker
-      setMarkerPosition([lat, lon]);
-
-      // Call backend
-      const res = await axios.get(
-        `${BASE_URL}/analysis?lat=${lat}&lon=${lon}`
-      );
-
-      setData(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-
-    setLoading(false);
-  };
+  // 🔥 move map visually
+  if (mapRef.current) {
+    mapRef.current.flyTo([lat, lon], 10, {
+      duration: 1.5
+    });
+  }
+};
 
   return (
     <div style={{ position: "relative", height: "100vh", width: "100%" }}>
