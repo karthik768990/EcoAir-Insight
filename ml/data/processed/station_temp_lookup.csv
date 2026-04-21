@@ -1,0 +1,289 @@
+Monitoring Station,Latitude,Longitude,State,City,Latest_Temp_Date,Latest_Temp_C
+"HB Colony, Vijayawada - APPCB",16.536107,80.594233,,,,
+"Kanuru, Vijayawada - APPCB",16.486692,80.699436,,,,
+"PWD Grounds, Vijayawada - APPCB",16.507014,80.627767,,,,
+"Rajiv Gandhi Park, Vijayawada - APPCB",16.509717,80.612222,,,,
+"GVM Corporation, Visakhapatnam - APPCB",17.72,83.3,,,,
+"IITG, Guwahati - PCBA",26.202864,91.700464,,,,
+"LGBI Airport, Guwahati - PCBA",26.10887,91.589544,,,,
+"Pan Bazaar, Guwahati - PCBA",26.1875,91.744194,,,,
+"Railway Colony, Guwahati - PCBA",26.181742,91.78063,,,,
+"Christianpatty, Nagaon - PCBA",26.349082,92.68449,,,,
+"Bata Chowk, Nalbari - PCBA",26.446912,91.439057,,,,
+"Tarapur, Silchar - PCBA",24.82827,92.79525,Assam,Silchar,2023-12-31,20.5
+"Collectorate, Gaya - BSPCB",24.7955,84.9994,Bihar,Gaya,2023-12-31,18.21
+"Kareem Ganj, Gaya - BSPCB",24.792403,84.992416,,,,
+"SFTI Kusdihra, Gaya - BSPCB",24.762518,84.982348,Bihar,Gaya,2023-12-31,13.22
+"Buddha Colony, Muzaffarpur - BSPCB",26.11442,85.39813,Bihar, Muzaffarpur,2023-12-31,12.86
+"MIT-Daudpur Kothi, Muzaffarpur - BSPCB",26.140334,85.365019,Bihar,Muzaffarpu,2023-12-31,14.18
+"Muzaffarpur Collectorate, Muzaffarpur - BSPCB",26.1209,85.3647,Bihar,Muzaffarpur,2023-12-31,18.21
+"DRM Office Danapur, Patna - BSPCB",25.586562,85.043586,Bihar,Patna,2023-12-31,13.48
+"Govt. High School Shikarpur, Patna - BSPCB",25.592539,85.227158,Bihar,Patna,2023-12-31,13.27
+"IGSC Planetarium Complex, Patna - BSPCB",25.610369,85.132568,Bihar,Patna,2023-12-31,21.2
+"Muradpur, Patna - BSPCB",25.619651,85.147382,Bihar,Patna,2023-12-31,12.59
+"Rajbansi Nagar, Patna - BSPCB",25.599486,85.113666,Bihar,Patna,2023-12-31,12.34
+"Samanpura, Patna - BSPCB",25.596727,85.085624,Bihar,Patna,2023-12-31,8.9
+"Sector 22, Chandigarh - CPCC",30.735567,76.775714,Chandigarh,Chandigarh,2023-12-31,10.42
+"Sector-25, Chandigarh - CPCC",30.751462,76.762879,Chandigarh,Chandigarh,2023-12-31,10.32
+"Sector-53, Chandigarh - CPCC",30.719859,76.738637,Chandigarh,Chandigarh,2023-12-31,11.27
+"5/32 Bungalows, Bhilai - CECB",21.194815,81.31477,,,,
+"Civic Center, Bhilai - Bhilai Steel Plant",21.185571,81.343175,,,,
+"Hathkhoj, Bhilai - CECB",21.224231,81.40835,Chandigarh,Bhilai,2023-12-31,19.59
+"Rampur, Korba - CECB",22.368195,82.746431,Chandigarh,Korba,2023-12-31,23.22
+"Urja Nagar, Korba - CECB",22.348441,82.549611,Chandigarh,Korba,2023-12-31,19.08
+"AIIMS, Raipur - CECB",21.258815,81.578979,Chandigarh,Raipur,2023-12-31,20.57
+"Chhattisgarh, Raipur , New ISBT Bhatagaon - CECB",21.219665,81.630094,,,,
+"Krishak Nagar, Raipur - CECB",21.237755,81.705301,Chandigarh,Raipur,2023-12-31,20.33
+"Siltara Phase-II, Raipur - CECB",21.371751,81.664929,Chandigarh,Raipur,2023-12-31,24.33
+"Alipur, Delhi - DPCC",28.815329,77.15301,Delhi,Delhi,2023-12-31,8.2
+"Anand Vihar, Delhi - DPCC",28.647622,77.315809,Delhi,Delhi,2023-12-31,32.85
+"Bawana, Delhi - DPCC",28.7762,77.051074,Delhi,Delhi,2023-12-31,12.43
+"Burari Crossing, Delhi - IMD",28.72565,77.201157,Delhi,Delhi,2018-05-28,33.53
+"CRRI Mathura Road, Delhi - IMD",28.5512,77.273574,Delhi,Delhi,2018-06-01,32.61
+"Chandni Chowk, Delhi - IITM",28.656756,77.227234,Delhi,Delhi,2023-06-08,36.01
+"Dr. Karni Singh Shooting Range, Delhi - DPCC",28.498571,77.26484,Delhi,Delhi,2023-12-31,11.09
+"Dwarka-Sector 8, Delhi - DPCC ",28.571027,77.071901,Delhi,Delhi,2023-12-31,13.66
+"IGI Airport (T3), Delhi - IMD",28.562776,77.118005,,,,
+"ITO, Delhi - CPCB",28.628624,77.24106,,,,
+"Jawaharlal Nehru Stadium, Delhi - DPCC",28.58028,77.233829,Delhi,Delhi,2023-12-31,11.09
+"Lodhi Road, Delhi - IITM",28.588333,77.221667,,,,
+"Lodhi Road, Delhi - IMD",28.591824,77.227307,Delhi,Delhi,2018-01-30,12.32
+"Major Dhyan Chand National Stadium, Delhi - DPCC",28.611281,77.237738,Delhi,Delhi,2023-12-31,11.32
+"Mandir Marg, Delhi - DPCC",28.636429,77.201067,Delhi,Delhi,2023-12-31,11.03
+"Mundka, Delhi - DPCC",28.684678,77.076574,Delhi,Delhi,2023-12-31,12.33
+"NSIT Dwarka, Delhi - CPCB",28.60909,77.032541,,,,
+"Nehru Nagar, Delhi - DPCC",28.56789,77.250515,Delhi,Delhi,2023-12-31,10.7
+"DU, Delhi - IMD",28.657381,77.158545,Delhi,Delhi,2018-06-02,27.07
+"Okhla Phase-2, Delhi - DPCC",28.530785,77.271255,Delhi,Delhi,2023-11-30,12.14
+"Punjabi Bagh, Delhi - DPCC",28.674045,77.131023,Delhi,Delhi,2023-12-31,14.58
+"Pusa, Delhi - DPCC",28.639652,77.146275,Delhi,Delhi,2023-12-31,15.81
+"Pusa, Delhi - IMD",28.63611,77.173332,Delhi,Delhi,2018-06-02,22.72
+"Shadipur, Delhi - CPCB",28.651478,77.14731,Delhi,Delhi,2022-07-31,25.12
+"Sirifort, Delhi - CPCB",28.550425,77.215938,,,,
+"Sri Aurobindo Marg, Delhi - DPCC",28.531346,77.190156,Delhi,Delhi,2023-12-31,11.59
+"Vivek Vihar, Delhi - DPCC",28.672342,77.31526,Delhi,Delhi,2023-12-31,12.68
+"Wazirpur, Delhi - DPCC",28.699793,77.165453,Delhi,Delhi,2023-12-31,11.02
+"Chandkheda, Ahmedabad - IITM",23.107969,72.574648,,,,
+"Gyaspur, Ahmedabad - IITM",22.977134,72.553024,,,,
+"Maninagar, Ahmedabad - GPCB",23.002657,72.591912,,,,
+"Raikhad, Ahmedabad - IITM",23.020509,72.579261,,,,
+"Rakhial, Ahmedabad - IITM",23.016834,72.625775,,,,
+"Ahmedabad, SAC ISRO Satellite,  - IITM",23.023389,72.515201,,,,
+"Ahmedabad, SVPI Airport Hansol",23.076793,72.627874,,,,
+"Sardar Vallabhbhai Patel Stadium, Ahmedabad - IITM",23.04307,72.562968,,,,
+"Science Center, Surat - SMC",21.170046,72.795405,Gujrat,Surat ,2023-12-31,26.1
+"New Industrial Town, Faridabad - HSPCB",28.39072,77.30059,,,,
+"Sector 11, Faridabad - HSPCB",28.376058,77.315741,,,,
+"Sector 30, Faridabad - HSPCB",28.4417,77.3217,,,,
+"Sector- 16A, Faridabad - HSPCB",28.408842,77.309908,,,,
+"HIMUDA Complex Phase-1, Baddi - HPPCB",30.943887,76.801991,,,,
+"Rajbagh, Srinagar - JKSPCB",34.066206,74.81982,,,,
+"Sardar Patel Nagar, Dhanbad - JSPCB",23.80569,86.44268,,,,
+"BWSSB Kadabesanahalli, Bengaluru - CPCB",12.935205,77.681449,,,,
+"City Railway Station, Bengaluru - KSPCB",12.975684,77.566075,,,,
+"Hombegowda Nagar, Bengaluru - KSPCB",12.938539,77.5901,,,,
+"Jayanagar 5th Block, Bengaluru - KSPCB",12.920984,77.584908,,,,
+"Jigani, Bengaluru - KSPCB",12.781628,77.629914,,,,
+"Kasturi Nagar, Bengaluru - KSPCB",13.00387,77.664217,,,,
+"Peenya, Bengaluru - CPCB",13.02702,77.494094,,,,
+"RVCE-Mailasandra, Bengaluru - KSPCB",12.921418,77.502466,,,,
+"Sanegurava Halli, Bengaluru - KSPCB",12.990328,77.543138,,,,
+"Shivapura_Peenya, Bengaluru - KSPCB",13.024634,77.508012,,,,
+"Silk Board, Bengaluru - KSPCB",12.917348,77.622813,,,,
+"Devaraj Urs Badavane, Davanagere - KSPCB",14.4758,75.9052,,,,
+"Kariavattom, Thiruvananthapuram - Kerala PCB",8.5637,76.8865,,,,
+"Plammoodu, Thiruvananthapuram - Kerala PCB",8.514909,76.943588,,,,
+"Idgah Hills, Bhopal - MPPCB",23.264759,77.381568,,,,
+"Paryavaran Parisar, Bhopal - MPPCB",23.210494,77.425409,,,,
+"T T Nagar, Bhopal - MPPCB",23.233584,77.400574,,,,
+"Bhopal Chauraha, Dewas - MPPCB",22.968259,76.064118,,,,
+"City Center, Gwalior - MPPCB",26.203442,78.193251,,,,
+"Deen Dayal Nagar, Gwalior - MPPCB",26.259242,78.216432,,,,
+"Maharaj Bada, Gwalior - MPPCB",26.200388,78.147714,,,,
+"Phool Bagh, Gwalior - Mondelez Ind. Food",26.210536,78.171,,,,
+"Chhoti Gwaltoli, Indore - MPPCB",22.431,75.5213,,,,
+"Govindh Bhavan Colony, Jabalpur - JMC",23.163174,79.973061,,,,
+"Marhatal, Jabalpur - MPPCB",23.168606,79.932247,,,,
+"Suhagi, Jabalpur - JMC",23.218135,79.95777,,,,
+"Civil Lines, Sagar - MPPCB",23.838586,78.759431,,,,
+"Deen Dayal Nagar, Sagar - MPPCB",23.864016,78.802893,,,,
+"Mahakaleshwar Temple, Ujjain - MPPCB",23.182719,75.768218,,,,
+"Ramdaspeth, Akola - MPCB",20.719516,77.000253,,,,
+"Shivneri Colony, Amravati - MPCB",20.940236,77.789525,,,,
+"Shri Shivaji Science College, Amaravati - MPCB",20.939198,77.765701,,,,
+"MIDC Chilkalthana, Aurangabad - MPCB",19.87562,75.38731,Bihar,Aurangabad,2023-12-31,23.24
+"More Chowk Waluj, Aurangabad - MPCB",19.838944,75.244448,,,,
+"Rachnakar Colony, Aurangabad - MPCB",19.863756,75.321188,Bihar,Aurangabad,2023-12-31,25.43
+"Katrap, Badlapur - MPCB",19.16485,73.23409,,,,
+"Chauhan Colony, Chandrapur - MPCB",19.9629,79.298714,,,,
+"MIDC Khutala, Chandrapur - MPCB",19.97753,79.233709,,,,
+"Prabhat Colony, Jalgaon - MPCB",21.001264,75.565602,,,,
+"Old MIDC, Jalna - MPCB",19.854616,75.905894,,,,
+"Shivaji University, Kolhapur - MPCB",16.687045,74.250587,,,,
+"Sinchan Bhavan, Kolhapur - MPCB",16.714375,74.24264,,,,
+"Sawe Wadi, Latur - MPCB",18.39963,76.57452,,,,
+"Bandra Kurla Complex, Mumbai - IITM",19.053536,72.84643,Maharashtra,Mumbai,2022-10-17,27.01
+"Bandra Kurla Complex, Mumbai - MPCB",19.065931,72.862131,Maharashtra,Mumbai,2023-12-31,29.23
+"Bandra, Mumbai - MPCB",19.0627,72.84614,,,,
+"Borivali East, Mumbai - IITM",19.23241,72.86895,,,,
+"Borivali East, Mumbai - MPCB",19.224333,72.865811,Maharashtra,Mumbai,2023-12-31,30.48
+"Chakala-Andheri East, Mumbai - IITM",19.11074,72.86084,,,,
+"Chembur, Mumbai - MPCB",19.036458,72.895437,Maharashtra,Mumbai,2023-12-31,27.07
+"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB",19.10078,72.87462,Maharashtra,Mumbai,2023-12-31,27.77
+"Colaba, Mumbai - MPCB",18.91,72.82,Maharashtra,Mumbai,2023-12-31,24.86
+"Deonar, Mumbai - IITM",19.04946,72.923,Maharashtra,Mumbai,2023-06-29,3.41
+"Ghatkopar, Mumbai - BMC",19.083694,72.920967,,,,
+"Kandivali East, Mumbai - MPCB",19.2058,72.8682,Maharashtra,Mumbai,2023-12-30,25.09
+"Kandivali West, Mumbai - BMC",19.215859,72.831718,Maharashtra,Mumbai,2023-12-31,26.23
+"Kherwadi_Bandra East, Mumbai - MPCB",19.063214,72.845632,Maharashtra,Mumbai,2023-12-31,27.66
+"Khindipada-Bhandup West, Mumbai - IITM",19.165332,72.922099,Maharashtra,Mumbai,2022-07-31,2.46
+"Malad West, Mumbai - IITM",19.19709,72.82204,Maharashtra,Mumbai,2021-08-27,25.4
+"Mindspace-Malad West, Mumbai - MPCB",19.187866,72.830407,Maharashtra,Mumbai,2023-12-31,22.87
+"Mulund West, Mumbai - MPCB",19.175,72.9419,Maharashtra,Mumbai,2023-12-01,23.87
+"Navy Nagar-Colaba, Mumbai - IITM",18.897756,72.81332,Maharashtra,Mumbai,2023-12-31,24.53
+"Powai, Mumbai - MPCB",19.1375,72.915056,Maharashtra,Mumbai,2023-12-31,24.53
+"Sewri, Mumbai - BMC",19.000084,72.85673,Maharashtra,Mumbai,2023-12-31,27.48
+"Shivaji Nagar, Mumbai - BMC",19.060498,72.923356,Maharashtra,Mumbai,2023-12-31,27.84
+"Siddharth Nagar-Worli, Mumbai - IITM",19.000083,72.813993,Maharashtra,Mumbai,2023-02-28,1.92
+"Sion, Mumbai - MPCB",19.047,72.8746,Maharashtra,Mumbai,2023-12-31,26.95
+"Vasai West, Mumbai - MPCB",19.3832,72.8204,Maharashtra,Mumbai,2023-12-31,27.01
+"Vile Parle West, Mumbai - MPCB",19.10861,72.83622,Maharashtra,Mumbai,2023-12-31,32.27
+"Worli, Mumbai - MPCB",18.993616,72.812811,Maharashtra,Mumbai,2023-12-31,26.24
+"Ambazari, Nagpur - MPCB",21.121801,79.04952,,,,
+"Mahal, Nagpur - MPCB",21.14472,79.107595,,,,
+"Opp GPO Civil Lines, Nagpur - MPCB",21.152875,79.051753,,,,
+"Ram Nagar, Nagpur - MPCB",21.143383,79.048912,,,,
+"Hirawadi, Nashik - MPCB",20.021503,73.813844,,,,
+"MIDC Ambad, Nashik - MPCB",19.95022,73.73148,,,,
+"Pandav Nagari, Nashik - MPCB",19.959135,73.778801,,,,
+"Airoli, Navi Mumbai - MPCB",19.1494,72.9986,,,,
+"Kopripada-Vashi, Navi Mumbai - MPCB",19.090337,73.014232,,,,
+"Mahape, Navi Mumbai - MPCB",19.113505,73.008978,,,,
+"Nerul, Navi Mumbai - MPCB",19.008751,73.01662,,,,
+"Sector-19A Nerul, Navi Mumbai - IITM",19.044,73.0325,,,,
+"Sector-2E Kalamboli, Navi Mumbai - MPCB",19.02579,73.10297,,,,
+"Tondare-Taloja, Navi Mumbai - MPCB",19.063,73.1209,,,,
+"Alandi, Pune - IITM",18.675076,73.892743,,,,
+"Bhosari, Pune - IITM",18.664282,73.763966,,,,
+"Hadapsar, Pune - IITM",18.640051,73.848956,,,,
+"Karve Road, Pune - MPCB",18.501793,73.927532,,,,
+"Katraj Dairy, Pune - MPCB",18.501174,73.816553,,,,
+"MIT-Kothrud, Pune - IITM",18.57304,73.927715,,,,
+"Mhada Colony, Pune - IITM",18.45445,73.854155,,,,
+"Revenue Colony-Shivajinagar, Pune - IITM",18.517754,73.821488,,,,
+"Savitribai Phule Pune University, Pune - MPCB",18.530085,73.849598,,,,
+"Transport Nagar-Nigdi, Pune - IITM",18.547056,73.826908,,,,
+"Vijay Nagar, Sangli - MPCB",16.5038,74.3623,,,,
+"Dnyaneshwar Nagar, Solapur - MPCB",17.633626,75.91325,,,,
+"Ratandeep Housing Society, Solapur - MPCB",17.65439,75.90649,,,,
+"Solapur, Solapur - MPCB",17.659919,75.906391,,,,
+"Kasarvadavali, Thane - MPCB",19.26777,72.97182,,,,
+"Upvan Fort, Thane - MPCB",19.222279,72.957979,,,,
+"Sidhi Vinayak Nagar, Ulhasnagar - MPCB",19.235581,73.159121,,,,
+"Bolinj, Virar - MPCB",19.445821,72.798823,,,,
+"PWD Juction, Kohima - NPCB",25.663541,94.098988,,,,
+"Hakimapada, Angul - OSPCB",20.832874,85.104082,,,,
+"Kalidaspur, Balasore - OSPCB",21.51161,86.89088,,,,
+"Lingraj Mandir, Bhubaneswar - OSPCB",20.24079,85.836784,,,,
+"Patia, Bhubaneswar - OSPCB",20.34652,85.8163,,,,
+"CDA Area, Cuttack - OSPCB",20.48891,85.84768,,,,
+"Fertilizer Township, Rourkela - OSPCB",22.189722,84.862778,,,,
+"Raghunathpali, Rourkela - OSPCB",22.220833,84.809444,,,,
+"Sector-2, Rourkela - OSPCB",22.245,84.881111,,,,
+"Golden Temple, Amritsar - PPCB",31.62,74.876512,,,,
+"Civil Line, Jalandhar - PPCB",31.321907,75.578914,,,,
+"Kalal Majra, Khanna - PPCB",30.736056,76.209694,,,,
+"Punjab Agricultural University, Ludhiana - PPCB",30.9028,75.8086,,,,
+"Model Town, Patiala - PPCB",30.349388,76.366642,,,,
+"Adarsh Nagar, Jaipur - RSPCB",26.902909,75.836858,,,,
+"Mansarovar Sector-12, Jaipur - RSPCB",26.843698,75.766894,,,,
+"Police Commissionerate, Jaipur - RSPCB",26.916409,75.79949,,,,
+"RIICO Sitapura, Jaipur - RSPCB",26.786682,75.827928,,,,
+"Sector-2 Murlipura, Jaipur - RSPCB",26.960669,75.771817,,,,
+"Shastri Nagar, Jaipur - RSPCB",26.950293,75.730943,,,,
+"Collectorate, Jodhpur - RSPCB",26.268249,73.019385,,,,
+"Digari Kalan, Jodhpur - RSPCB",26.29581,73.082283,,,,
+"Jhalamand, Jodhpur - RSPCB",26.215415,73.070156,,,,
+"Mandor, Jodhpur - RSPCB",26.358805,73.047444,,,,
+"Samrat Ashok Udhyan, Jodhpur - RSPCB",26.253384,72.976571,,,,
+"Dhanmandi, Kota - RSPCB",25.16409,75.858137,,,,
+"Nayapura, Kota - RSPCB",25.196024,75.855668,,,,
+"Shrinath Puram, Kota - RSPCB",25.14389,75.821256,,,,
+"Ashok Nagar, Udaipur - RSPCB",24.588617,73.63214,,,,
+"Alandur Bus Depot, Chennai - CPCB",12.909916,80.107654,,,,
+"Arumbakkam, Chennai - TNPCB",13.0664,80.2112,,,,
+"Gandhi Nagar_Ennore, Chennai - TNPCB",13.218341,80.32027,,,,
+"Kodungaiyur, Chennai - TNPCB",13.1278,80.2642,,,,
+"Manali, Chennai - CPCB",13.164544,80.26285,,,,
+"Perungudi, Chennai - TNPCB",12.9533,80.2357,,,,
+"Royapuram, Chennai - TNPCB",13.1036,80.2909,,,,
+"Velachery Res. Area, Chennai - CPCB",13.005219,80.239812,,,,
+"Bollaram Industrial Area, Hyderabad - TSPCB",17.540891,78.358528,,,,
+"Central University, Hyderabad - TSPCB",17.460103,78.334361,,,,
+"ECIL Kapra, Hyderabad - TSPCB",17.470431,78.566959,,,,
+"ICRISAT Patancheru, Hyderabad - TSPCB",17.5184,78.278777,,,,
+"IDA Pashamylaram, Hyderabad - TSPCB",17.53169,78.218939,,,,
+"IITH Kandi, Hyderabad - TSPCB",17.585705,78.126199,,,,
+"Kokapet, Hyderabad - TSPCB",17.393559,78.339194,,,,
+"Kompally Municipal Office, Hyderabad - TSPCB",17.544899,78.486949,,,,
+"Nacharam_TSIIC IALA, Hyderabad - TSPCB",17.429398,78.569354,,,,
+"New Malakpet, Hyderabad - TSPCB",17.37206,78.50864,,,,
+"Ramachandrapuram, Hyderabad - TSPCB",17.528544,78.286195,,,,
+"Sanathnagar, Hyderabad - TSPCB",17.455946,78.433215,,,,
+"Somajiguda, Hyderabad - TSPCB",17.417094,78.457437,,,,
+"Zoo Park, Hyderabad - TSPCB",17.349694,78.451437,,,,
+"Manoharpur, Agra - UPPCB",27.23711,78.01936,,,,
+"Rohta, Agra - UPPCB",27.106972,78.000111,,,,
+"Sanjay Palace, Agra - UPPCB",27.198658,78.005981,,,,
+"Sector-3B Avas Vikas Colony, Agra - UPPCB",27.19412,77.96237,,,,
+"Shahjahan Garden, Agra - UPPCB",27.169338,78.03582,,,,
+"Shastripuram, Agra - UPPCB",27.19862,77.92066,,,,
+"Civil Lines, Bareilly - UPPCB",28.359581,79.414455,,,,
+"Rajendra Nagar, Bareilly - UPPCB",28.389109,79.429637,,,,
+"Indirapuram, Ghaziabad - UPPCB",28.646233,77.358075,,,,
+"Loni, Ghaziabad - UPPCB",28.757294,77.278792,,,,
+"Sanjay Nagar, Ghaziabad - UPPCB",28.685382,77.453839,,,,
+"Madan Mohan Malaviya University of Technology, Gorakhpur - UPPCB",26.730136,83.433859,,,,
+"Shivaji Nagar, Jhansi - UPPCB",25.4547,78.6039,,,,
+"FTI Kidwai Nagar, Kanpur - UPPCB",26.428282,80.327067,,,,
+"IITK, Kanpur - IITK",26.511739,80.235136,,,,
+"NSI Kalyanpur, Kanpur - UPPCB",26.509954,80.249612,,,,
+"Nehru Nagar, Kanpur - UPPCB",26.470314,80.322986,,,,
+"B R Ambedkar University, Lucknow - UPPCB",26.766433,80.927299,,,,
+"Gomti Nagar, Lucknow - UPPCB",26.86812,81.005119,,,,
+"Kendriya Vidyalaya, Lucknow - CPCB",26.906111,80.948222,,,,
+"Kukrail Picnic Spot-1, Lucknow - UPPCB",26.90723,80.98579,,,,
+"Lalbagh, Lucknow - CPCB",26.84588,80.936554,,,,
+"Nishant Ganj, Lucknow - UPPCB",26.871428,80.957145,,,,
+"Talkatora District Industries Center, Lucknow - CPCB",26.833997,80.891736,,,,
+"Ganga Nagar, Meerut - UPPCB",28.999264,77.759035,,,,
+"Jai Bhim Nagar, Meerut - UPPCB",28.953588,77.762294,,,,
+"Pallavpuram Phase 2, Meerut - UPPCB",29.06351,77.709723,,,,
+"Buddhi Vihar, Moradabad - UPPCB",28.83526,78.7446,,,,
+"Eco Herbal Park, Moradabad - UPPCB",28.840739,78.697531,,,,
+"Employment Office, Moradabad - UPPCB",28.88528,78.7388,,,,
+"Jigar Colony, Moradabad - UPPCB",28.856664,78.772638,,,,
+"Kashiram Nagar, Moradabad - UPPCB",28.849399,78.742362,,,,
+"Lajpat Nagar, Moradabad - UPPCB",28.825341,78.721301,,,,
+"Transport Nagar, Moradabad - UPPCB",28.802625,78.753728,,,,
+"Ardhali Bazar, Varanasi - UPPCB",25.350599,82.908307,,,,
+"Bhelupur, Varanasi - UPPCB",25.301778,82.996789,,,,
+"IESD Banaras Hindu University, Varanasi - UPPCB",25.262326,82.995408,,,,
+"Maldahiya, Varanasi - UPPCB",25.32393,82.99687,,,,
+"Doon University, Dehradun - UKPCB",30.269444,78.044167,,,,
+"Govt. Girls Inter College, Kashipur - UKPCB",29.212411,78.961175,,,,
+"Shivaji Nagar, Rishikesh - UKPCB",30.075911,78.285955,,,,
+"Asansol Court Area, Asansol - WBPCB",23.685297,86.945968,,,,
+"SVSPA Campus, Barrackpore - WBPCB",22.760558,88.361759,,,,
+"Sidhu Kanhu Indoor Stadium, Durgapur - WBPCB",23.540435,87.289222,,,,
+"Priyambada Housing Estate, Haldia - WBPCB",22.06047,88.109737,,,,
+"Belur Math, Howrah - WBPCB",22.629801,88.352017,,,,
+"Ghusuri, Howrah - WBPCB",22.611968,88.347422,,,,
+"Padmapukur, Howrah - WBPCB",22.568732,88.279728,,,,
+"Ballygunge, Kolkata - WBPCB",22.536751,88.363802,,,,
+"Bidhannagar, Kolkata - WBPCB",22.58157,88.410025,,,,
+"Fort William, Kolkata - WBPCB",22.55664,88.342674,,,,
+"Jadavpur, Kolkata - WBPCB",22.49929,88.36917,,,,
+"Rabindra Bharati University, Kolkata - WBPCB",22.627847,88.380669,,,,
+"Rabindra Sarobar, Kolkata - WBPCB",22.51106,88.35142,,,,
+"Victoria, Kolkata - WBPCB",22.544808,88.340369,,,,
