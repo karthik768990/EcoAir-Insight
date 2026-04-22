@@ -71,7 +71,7 @@ def process_raw_data():
         pollutant_cols = [
     col for col in combined_df.columns
     if any(p in col.lower() for p in [
-        'pm2.5', 'pm10', 'no2', 'so2', 'co', 'ozone','highest pollutant','no','nh3','so2','ozone',
+        'pm2.5', 'pm10', 'no2', 'so2', 'co', 'ozone'
     ])
 ]
          

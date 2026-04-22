@@ -65,18 +65,9 @@ def process_raw_data():
         combined_df = combined_df.dropna(subset=['Date', 'AQI'])
         
         # Standardize columns concisely
-        important_base =  [
-    'State', 'City', 'Monitoring Station', 'Date', 'AQI'
-]
-        pollutant_cols = [
-    col for col in combined_df.columns
-    if any(p in col.lower() for p in [
-        'pm2.5', 'pm10', 'no2', 'so2', 'co', 'ozone','highest pollutant','no','nh3','so2','ozone',
-    ])
-]
-         
-        cols_to_keep = important_base + pollutant_cols
-        
+        important_base
+        target_cols = ['State', 'City', 'Monitoring Station', 'Date', 'AQI', 'PM2.5 (ug/m3)', 'PM10 (ug/m3)', 'Highest Pollutant']
+        cols_to_keep = [c for c in target_cols if c in combined_df.columns]
         
         cleaned_df = combined_df[cols_to_keep]
         cleaned_df.to_csv(os.path.join(processed_dir, 'cleaned_data.csv'), index=False)

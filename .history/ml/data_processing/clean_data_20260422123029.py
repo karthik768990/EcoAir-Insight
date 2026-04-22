@@ -65,20 +65,23 @@ def process_raw_data():
         combined_df = combined_df.dropna(subset=['Date', 'AQI'])
         
         # Standardize columns concisely
-        important_base =  [
-    'State', 'City', 'Monitoring Station', 'Date', 'AQI'
-]
+        # 🔥 KEEP ALL RELEVANT COLUMNS AUTOMATICALLY
+
+        important_base = [
+                'State', 'City', 'Monitoring Station', 'Date', 'AQI'
+                ]
+
+# 🔥 Detect pollutant columns dynamically
         pollutant_cols = [
-    col for col in combined_df.columns
-    if any(p in col.lower() for p in [
-        'pm2.5', 'pm10', 'no2', 'so2', 'co', 'ozone','highest pollutant','no','nh3','so2','ozone',
-    ])
-]
-         
-        cols_to_keep = important_base + pollutant_cols
-        
-        
-        cleaned_df = combined_df[cols_to_keep]
+            col for col in combined_df.columns
+                if any(p in col.lower() for p in [
+                    'pm2.5', 'pm10', 'no2', 'so2', 'co', 'ozone'
+                    ])
+                ]
+
+cols_to_keep = important_base + pollutant_cols
+
+cleaned_df = combined_df[cols_to_keep]
         cleaned_df.to_csv(os.path.join(processed_dir, 'cleaned_data.csv'), index=False)
         print(f"✅ Success: Consolidated {len(cleaned_df)} historical records from ALL tabs.")
     else:
