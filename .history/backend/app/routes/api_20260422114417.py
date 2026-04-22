@@ -51,9 +51,7 @@ def fetch_air_quality(lat: float, lon: float):
     "health": {},
     "ai_insights": "No data available"
     }
-
-    print("Station requested:", station_name)
-    print("Rows found:", len(AQI_DF[AQI_DF['Monitoring Station'] == station_name]))    
+        
     latest_data, predictions = result
     pollutant_analysis = analyze_pollutants({
     "pm25": latest_data.get('PM2.5 (ug/m3)'),

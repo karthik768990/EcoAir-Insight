@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from services.data_service import get_nearest_station, get_station_payload, get_top_polluted
-from services.pollutant_analysis_service import analyze_pollutants
 
 router = APIRouter()
 
@@ -38,31 +37,14 @@ def get_health_intelligence(aqi):
 
 # --- Existing Route (Expanded with Reduction Tips) ---
 @router.get("/api/aqi")
-
 def fetch_air_quality(lat: float, lon: float):
     station_name, distance_km = get_nearest_station(lat, lon)
     result = get_station_payload(station_name)
-
+    
     if not result:
-        return {
-    "location": {},
-    "current_data": {},
-    "prediction": [],
-    "health": {},
-    "ai_insights": "No data available"
-    }
-
-    print("Station requested:", station_name)
-    print("Rows found:", len(AQI_DF[AQI_DF['Monitoring Station'] == station_name]))    
+        raise HTTPException(status_code=404, detail="Data not found for nearest station.")
+        
     latest_data, predictions = result
-    pollutant_analysis = analyze_pollutants({
-    "pm25": latest_data.get('PM2.5 (ug/m3)'),
-    "pm10": latest_data.get('PM10 (ug/m3)'),
-    "no2": latest_data.get('NO2'),
-    "so2": latest_data.get('SO2'),
-    "co": latest_data.get('CO'),
-    "ozone": latest_data.get('OZONE')
-})
     
     aqi_val = latest_data.get('AQI', 0)
     primary_pollutant = latest_data.get('Highest Pollutant', 'PM2.5')
@@ -76,16 +58,12 @@ def fetch_air_quality(lat: float, lon: float):
             "state": latest_data.get('State', 'Unknown')
         },
         "current_data": {
-    "aqi": aqi_val,
-
-    "pollutants": pollutant_analysis["pollutants"],
-
-    "major_pollutant": pollutant_analysis["major_pollutant"],
-
-    "explanation": pollutant_analysis["explanation"],
-
-    "date_recorded": str(latest_data.get('Date', 'N/A'))
-},
+            "aqi": aqi_val,
+            "pm25": latest_data.get('PM2.5 (ug/m3)', 'N/A'),
+            "pm10": latest_data.get('PM10 (ug/m3)', 'N/A'),
+            "primary_pollutant": primary_pollutant,
+            "date_recorded": str(latest_data.get('Date', 'N/A'))
+        },
         "intelligence": {
             "primary_cause": CAUSES.get(primary_pollutant, "General urban pollution mix."),
             "health_risk_level": risk_level,

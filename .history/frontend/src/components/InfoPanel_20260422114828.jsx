@@ -59,17 +59,21 @@ style={panelStyle}
   <h4 style={{ color: "#38bdf8" }}>Pollution</h4>
 
   <div style={grid}>
-{current?.pm25 && (
+   {current?.pollutants?.pm25 && (
   <>
     <span style={label}>PM2.5</span>
-    <span style={value}>{current.pm25}</span>
+    <span style={value}>
+      {current.pm25.value}
+    </span>
   </>
 )}
 
-{current?.pm10 && (
+{current?.pollutants?.pm10 && (
   <>
     <span style={label}>PM10</span>
-    <span style={value}>{current.pm10}</span>
+    <span style={value}>
+      {current.pollutants.pm10.value}
+    </span>
   </>
 )}
   </div>

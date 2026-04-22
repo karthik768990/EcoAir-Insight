@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import PredictionChart from "./PredictionChart";
 import ReactMarkdown from "react-markdown";
-import PollutantPanel from "./PollutantPanel";
 
 export default function InfoPanel({ data }) {
 if (!data) return null;
@@ -20,7 +19,7 @@ const sectionTitle = (color) => ({
   fontWeight: "600",
   marginBottom: "6px",
 });
-console.log("CURRENT DATA:", current);
+
 return (
 <motion.div
 initial={{ x: 300, opacity: 0 }}
@@ -37,7 +36,7 @@ style={panelStyle}
       color: getAQIColor(current?.aqi),
     }}
   >
-    {current?.aqi ? Math.round(current.aqi) : "--"}
+    {Math.round(current?.aqi || 0)}
   </div>
 
   <span
@@ -59,22 +58,12 @@ style={panelStyle}
   <h4 style={{ color: "#38bdf8" }}>Pollution</h4>
 
   <div style={grid}>
-{current?.pm25 && (
-  <>
-    <span style={label}>PM2.5</span>
-    <span style={value}>{current.pm25}</span>
-  </>
-)}
-
-{current?.pm10 && (
-  <>
-    <span style={label}>PM10</span>
-    <span style={value}>{current.pm10}</span>
-  </>
-)}
+    {current?.pm25 && <><span style={label}>PM2.5</span><span style={value}>{current.pm25}</span></>}
+    {current?.pm10 && <><span style={label}>PM10</span><span style={value}>{current.pm10}</span></>}
+    {current?.no2 && <><span style={label}>NO2</span><span style={value}>{current.no2}</span></>}
+    {current?.so2 && <><span style={label}>SO2</span><span style={value}>{current.so2}</span></>}
   </div>
 </div>
-<PollutantPanel data={current} />
   {/* 🌦 WEATHER CARD */}
 <div style={card}>
   <h4  style={{ color: "#d134cc" }}>Weather</h4>

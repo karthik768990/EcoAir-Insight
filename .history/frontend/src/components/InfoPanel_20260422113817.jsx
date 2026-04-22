@@ -6,7 +6,7 @@ import PollutantPanel from "./PollutantPanel";
 export default function InfoPanel({ data }) {
 if (!data) return null;
 
-const current = data.current || {};
+const current = data.current_data || {};
 const getAQIColor = (aqi) => {
   if (!aqi) return "#94a3b8";
   if (aqi <= 50) return "#22c55e";
@@ -20,7 +20,7 @@ const sectionTitle = (color) => ({
   fontWeight: "600",
   marginBottom: "6px",
 });
-console.log("CURRENT DATA:", current);
+
 return (
 <motion.div
 initial={{ x: 300, opacity: 0 }}
@@ -59,19 +59,10 @@ style={panelStyle}
   <h4 style={{ color: "#38bdf8" }}>Pollution</h4>
 
   <div style={grid}>
-{current?.pm25 && (
-  <>
-    <span style={label}>PM2.5</span>
-    <span style={value}>{current.pm25}</span>
-  </>
-)}
-
-{current?.pm10 && (
-  <>
-    <span style={label}>PM10</span>
-    <span style={value}>{current.pm10}</span>
-  </>
-)}
+    {current?.pm25 && <><span style={label}>PM2.5</span><span style={value}>{current.pm25}</span></>}
+    {current?.pm10 && <><span style={label}>PM10</span><span style={value}>{current.pm10}</span></>}
+    {current?.no2 && <><span style={label}>NO2</span><span style={value}>{current.no2}</span></>}
+    {current?.so2 && <><span style={label}>SO2</span><span style={value}>{current.so2}</span></>}
   </div>
 </div>
 <PollutantPanel data={current} />

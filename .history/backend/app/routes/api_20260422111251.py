@@ -42,18 +42,10 @@ def get_health_intelligence(aqi):
 def fetch_air_quality(lat: float, lon: float):
     station_name, distance_km = get_nearest_station(lat, lon)
     result = get_station_payload(station_name)
-
+    
     if not result:
-        return {
-    "location": {},
-    "current_data": {},
-    "prediction": [],
-    "health": {},
-    "ai_insights": "No data available"
-    }
-
-    print("Station requested:", station_name)
-    print("Rows found:", len(AQI_DF[AQI_DF['Monitoring Station'] == station_name]))    
+        raise HTTPException(status_code=404, detail="Data not found for nearest station.")
+        
     latest_data, predictions = result
     pollutant_analysis = analyze_pollutants({
     "pm25": latest_data.get('PM2.5 (ug/m3)'),
