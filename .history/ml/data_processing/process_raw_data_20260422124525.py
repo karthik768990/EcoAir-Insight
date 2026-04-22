@@ -17,10 +17,7 @@ def process_raw_data():
     stations_path = os.path.join(processed_dir, "stations.csv")
     cleaned_path = os.path.join(processed_dir, "cleaned_data.csv")
 
-    excel_files = [
-    f for f in glob.glob(os.path.join(raw_dir, "*.xlsx"))
-    if not os.path.basename(f).startswith("~$")
-]
+    excel_files = glob.glob(os.path.join(raw_dir, "*.xlsx"))
 
     if not excel_files:
         print("❌ No Excel files found.")
@@ -37,7 +34,7 @@ def process_raw_data():
 
             for sheet_name, df in sheets.items():
                 # 🔥 Normalize column names
-                df.columns = df.columns.map(lambda x: str(x).strip().lower())
+                df.columns = df.columns.str.strip().str.lower()
 
                 # =============================
                 # 1. STATION COORDINATES

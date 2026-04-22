@@ -29,4 +29,4 @@ def find_nearest_station(lat, lon):
 
     idx = np.argmin(distances)
 
-    return stations_df.iloc[idx]["monitoring station"]
+    return stations_df.iloc[idx]["Monitoring Station"]

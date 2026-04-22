@@ -16,27 +16,19 @@ if not os.path.exists(data_path):
 
 df = pd.read_csv(data_path)
 
-# 🔥 CRITICAL FIX
-df.columns = df.columns.map(lambda x: str(x).strip().lower())
+df.columns = df.columns.str.strip()
 
-# =============================
-# NORMALIZE COLUMN NAMES
-# =============================
-rename_map = {
-    "monitoring station": "station",
-    "state": "state",
-    "city": "city",
-    "date": "date",
-    "aqi": "aqi",
-    "pm2.5": "pm2.5",
-    "pm10": "pm10",
-}
+# Normalize names
+df.rename(columns={
+    "Monitoring Station": "station",
+    "State": "state",
+    "City": "city",
+    "Date": "date",
+    "AQI": "aqi",
+    "PM2.5 (ug/m3)": "pm2.5",
+    "PM10 (ug/m3)": "pm10"
+}, inplace=True)
 
-df.rename(columns=rename_map, inplace=True)
-
-# =============================
-# DATE FIX
-# =============================
 df["date"] = pd.to_datetime(df["date"], errors="coerce")
 
 # =============================
@@ -49,12 +41,9 @@ def normalize(text):
     text = re.sub(r"[^a-z0-9 ]", "", text)
     return text
 
-# 🔥 SAFE COLUMN CHECK
-if "station" not in df.columns:
-    raise Exception("Column 'station' missing in dataset")
-
 df["station_norm"] = df["station"].apply(normalize)
 df["city_norm"] = df["city"].apply(normalize)
+
 
 # =============================
 # MAIN FUNCTION
@@ -90,6 +79,7 @@ def get_current_aqi(station_name: str):
     if station_data.empty:
         print("⚠️ Falling back to city-level data...")
 
+        # Extract city from station name
         words = station_norm.split()
         possible_city = words[-1] if words else ""
 
@@ -118,43 +108,41 @@ def get_current_aqi(station_name: str):
         series = series.dropna()
         return series.iloc[0] if not series.empty else None
 
+
     def safe_col(col):
-        if col in station_data.columns:
+        if col in station_data:
             return get_latest(station_data[col])
         return None
 
-    # =============================
-    # CORE DATA
-    # =============================
-    aqi = safe_col("aqi")
-    pm25 = safe_col("pm2.5")
-    pm10 = safe_col("pm10")
-    city = safe_col("city")
-    state = safe_col("state")
+    aqi = get_latest(station_data["aqi"])
+    pm25 = get_latest(station_data["pm2.5"])
+    pm10 = get_latest(station_data["pm10"])
+    city = get_latest(station_data["city"])
+    state = get_latest(station_data["state"])
 
     # =============================
-    # RESULT
+    # OPTIONAL NEW DATA (SAFE)
     # =============================
+    
+
     result = {
-        "aqi": float(aqi) if aqi else None,
-        "pm25": float(pm25) if pm25 else None,
-        "pm10": float(pm10) if pm10 else None,
+    "aqi": float(aqi) if aqi else None,
+    "pm25": float(pm25) if pm25 else None,
+    "pm10": float(pm10) if pm10 else None,
 
-        # 🔥 OPTIONAL POLLUTANTS
-        "no2": safe_col("no2"),
-        "so2": safe_col("so2"),
-        "co": safe_col("co"),
-        "ozone": safe_col("ozone"),
+    # 🔥 SMART FETCH (not just latest row)
+    "no2": safe_col("no2"),
+    "so2": safe_col("so2"),
+    "co": safe_col("co"),
+    "ozone": safe_col("ozone"),
 
-        # 🔥 WEATHER
-        "temp": safe_col("temp"),
-        "rh": safe_col("rh"),
-        "ws": safe_col("ws"),
+    "temp": safe_col("temp"),
+    "rh": safe_col("rh"),
+    "ws": safe_col("ws"),
 
-        "city": city,
-        "state": state
+    "city": city,
+    "state": state
     }
-
     print("✅ FINAL OUTPUT:", result)
 
-    return result
+    return result   

@@ -14,19 +14,19 @@ if not os.path.exists(data_path):
 stations_df = pd.read_csv(data_path)
 
 # 🔥 FIX: Convert to numeric
-stations_df["latitude"] = pd.to_numeric(stations_df["latitude"], errors="coerce")
-stations_df["longitude"] = pd.to_numeric(stations_df["longitude"], errors="coerce")
+stations_df["Latitude"] = pd.to_numeric(stations_df["Latitude"], errors="coerce")
+stations_df["Longitude"] = pd.to_numeric(stations_df["Longitude"], errors="coerce")
 
 # Optional: drop bad rows
-stations_df = stations_df.dropna(subset=["latitude", "longitude"])
+stations_df = stations_df.dropna(subset=["Latitude", "Longitude"])
 
 
 def find_nearest_station(lat, lon):
-    latitudes = stations_df["latitude"].values
-    longitudes = stations_df["longitude"].values
+    latitudes = stations_df["Latitude"].values
+    longitudes = stations_df["Longitude"].values
 
     distances = np.sqrt((latitudes - lat)**2 + (longitudes - lon)**2)
 
     idx = np.argmin(distances)
 
-    return stations_df.iloc[idx]["monitoring station"]
+    return stations_df.iloc[idx]["Monitoring Station"]
