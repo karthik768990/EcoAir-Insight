@@ -25,7 +25,7 @@ def get_analysis(lat: float, lon: float):
     station = find_nearest_station(lat, lon)
 
     current = get_current_aqi(station)
-    pollutant_analysis = analyze_pollutants(current)
+    
     prediction = get_prediction(station)
     health = get_aqi_health_info(current["aqi"])
 
@@ -38,13 +38,7 @@ def get_analysis(lat: float, lon: float):
 
     return {
         "station": station,
-        "current": {
-    **current,
-
-    "pollutants": pollutant_analysis["pollutants"],
-    "major_pollutant": pollutant_analysis["major_pollutant"],
-    "explanation": pollutant_analysis["explanation"]
-},
+        "current": current,
         "prediction": prediction,
         "health": health,
         "ai_insights": ai

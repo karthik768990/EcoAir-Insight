@@ -38,15 +38,23 @@ style={panelStyle}
 {/* 🔥 HEADER */} <div style={header}>
   <h3 style={{ margin: 0 }}>{data.station}</h3>
 
-  <div
-    style={{
-      fontSize: "2.2rem",
-      fontWeight: "bold",
-      color: getAQIColor(current?.aqi),
-    }}
-  >
-    {current?.aqi ? Math.round(current.aqi) : "--"}
-  </div>
+  <div>
+  {Math.round(current?.aqi || 0)}
+</div>
+
+<div
+  style={{
+    background: getAQIColor(current?.aqi),
+    padding: "4px 10px",
+    borderRadius: "20px",
+    fontSize: "0.75rem",
+    fontWeight: "bold",
+    display: "inline-block",
+    color: "#0f172a"
+  }}
+>
+  {getAQILabel(current?.aqi)}
+</div>
 
   <span
     style={{
