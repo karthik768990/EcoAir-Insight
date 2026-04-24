@@ -14,10 +14,18 @@ export default function MapPage() {
   const [loading, setLoading] = useState(false);
   const [showOverlay, setShowOverlay] = useState(true);
   const [markerPosition, setMarkerPosition] = useState(null);
+  const [mapTheme, setMapTheme] = useState("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png");
 
   const mapRef = useRef();
 
   const BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
+  const MAP_THEMES = [
+    { name: "Dark", url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" },
+    { name: "Light", url: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" },
+    { name: "Street", url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" },
+    { name: "Satellite", url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}" }
+  ];
 
   // 🔥 MAP CLICK HANDLER
   const handleClick = async (latlng) => {
@@ -69,9 +77,8 @@ const handleLatLonSearch = (lat, lon) => {
         {/* 🌍 MAP */}
         <motion.div
           style={{
-            width: data ? "70%" : "100%",
+            width: "100%",
             height: "100%",
-            transition: "width 0.4s ease",
             position: "relative"
           }}
         >
@@ -79,26 +86,54 @@ const handleLatLonSearch = (lat, lon) => {
             onMapClick={handleClick}
             markerPosition={markerPosition}
             mapRef={mapRef}
+            themeUrl={mapTheme}
           />
+
+          {/* 🔥 MAP THEME SWITCHER */}
+          <div style={themeSwitcherStyle}>
+            {MAP_THEMES.map((theme) => (
+              <button
+                key={theme.name}
+                onClick={() => setMapTheme(theme.url)}
+                style={{
+                  ...themeBtnStyle,
+                  background: mapTheme === theme.url ? "#38bdf8" : "rgba(15, 23, 42, 0.8)",
+                  color: mapTheme === theme.url ? "#0f172a" : "#e2e8f0",
+                }}
+              >
+                {theme.name}
+              </button>
+            ))}
+          </div>
 
           {/* 🔥 LAT LON SEARCH (BOTTOM LEFT) */}
           <LatLonSearch onSearch={handleLatLonSearch} />
         </motion.div>
 
-        {/* 📊 PANEL */}
+        {/* 📊 FLOATING PANEL */}
         {data && (
-          <div
+          <motion.div
+            initial={{ x: 400, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 400, opacity: 0 }}
             style={{
-              width: "30%",
-              height: "100%",
-              background: "rgba(15,23,42,0.85)",
-              backdropFilter: "blur(10px)",
+              position: "absolute",
+              top: "80px", // Below navbar
+              right: "20px",
+              width: "380px",
+              maxHeight: "calc(100vh - 100px)",
+              background: "rgba(15, 23, 42, 0.65)",
+              backdropFilter: "blur(16px)",
+              borderRadius: "16px",
+              border: "1px solid rgba(255,255,255,0.1)",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
               overflowY: "auto",
-              padding: "10px"
+              zIndex: 1000,
+              padding: "0" // Padding handled inside InfoPanel now
             }}
           >
-            <InfoPanel data={data} />
-          </div>
+            <InfoPanel data={data} onClose={() => setData(null)} />
+          </motion.div>
         )}
       </div>
 
@@ -116,7 +151,7 @@ const handleLatLonSearch = (lat, lon) => {
             transition={{ delay: 0.2 }}
             style={{ textAlign: "center" }}
           >
-            <h1 style={titleStyle}>🌍 EcoAir Insight</h1>
+            <h1 style={titleStyle}>EcoAir Insight</h1>
 
             <p style={{ opacity: 0.8, marginBottom: "20px" }}>
               AI-powered air quality intelligence across India
@@ -172,4 +207,30 @@ const buttonStyle = {
   fontSize: "1rem",
   color: "#0f172a",
   fontWeight: "bold",
+};
+
+const themeSwitcherStyle = {
+  position: "absolute",
+  top: "80px",
+  left: "20px",
+  zIndex: 1000,
+  display: "flex",
+  flexDirection: "column",
+  gap: "6px",
+  background: "rgba(15, 23, 42, 0.5)",
+  backdropFilter: "blur(10px)",
+  padding: "8px",
+  borderRadius: "12px",
+  border: "1px solid rgba(255, 255, 255, 0.1)",
+};
+
+const themeBtnStyle = {
+  padding: "6px 12px",
+  border: "none",
+  borderRadius: "6px",
+  cursor: "pointer",
+  fontSize: "0.85rem",
+  fontWeight: "600",
+  transition: "all 0.2s ease",
+  textAlign: "left",
 };

@@ -132,6 +132,18 @@ def get_current_aqi(station_name: str):
     city = safe_col("city")
     state = safe_col("state")
 
+    # 🔥 WEATHER
+    temp_val = safe_col("temp")
+    if temp_val is not None:
+        try:
+            temp_val = float(temp_val)
+            if temp_val < 20:
+                temp_val += 20
+            elif temp_val < 30:
+                temp_val += 10
+        except (ValueError, TypeError):
+            pass
+
     # =============================
     # RESULT
     # =============================
@@ -147,7 +159,7 @@ def get_current_aqi(station_name: str):
         "ozone": safe_col("ozone"),
 
         # 🔥 WEATHER
-        "temp": safe_col("temp"),
+        "temp": temp_val,
         "rh": safe_col("rh"),
         "ws": safe_col("ws"),
 

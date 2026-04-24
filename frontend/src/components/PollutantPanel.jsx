@@ -11,7 +11,7 @@ export default function PollutantPanel({ data }) {
   if (!data || !data.pollutants) {
   return (
     <div style={card}>
-      <h3 style={title}>🌫 Pollutant Analysis</h3>
+      <h3 style={title}>Pollutant Analysis</h3>
       <p style={{ opacity: 0.6 }}>No pollutant data available</p>
     </div>
   );
@@ -23,7 +23,7 @@ export default function PollutantPanel({ data }) {
 
   return (
     <div style={card}>
-      <h3 style={title}>🌫 Pollutant Analysis</h3>
+      <h3 style={title}>Pollutant Analysis</h3>
 
       {/* 🔥 Pollutant List */}
       <div style={list}>

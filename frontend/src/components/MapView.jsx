@@ -1,6 +1,13 @@
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import { divIcon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
+
+const pulsingIcon = divIcon({
+  className: "pulsing-marker",
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
 
 // 🔥 Handles clicks + keeps map reference synced
 function ClickHandler({ onClick, setMapRef }) {
@@ -25,14 +32,16 @@ function ClickHandler({ onClick, setMapRef }) {
   return null;
 }
 
-export default function MapView({ onMapClick, markerPosition, mapRef }) {
+export default function MapView({ onMapClick, markerPosition, mapRef, themeUrl }) {
+  const defaultUrl = "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
+
   return (
     <MapContainer
       center={[20.5937, 78.9629]}
       zoom={5}
       style={{ height: "100vh", width: "100%" }}
     >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer url={themeUrl || defaultUrl} />
 
       <ClickHandler
         onClick={onMapClick}
@@ -40,7 +49,7 @@ export default function MapView({ onMapClick, markerPosition, mapRef }) {
       />
 
       {/* 🔥 USE PARENT STATE (IMPORTANT) */}
-      {markerPosition && <Marker position={markerPosition} />}
+      {markerPosition && <Marker position={markerPosition} icon={pulsingIcon} />}
     </MapContainer>
   );
 }
