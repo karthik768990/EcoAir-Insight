@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import re
+import numpy as np
 
 # =============================
 # LOAD DATA
@@ -10,11 +11,31 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 data_path = os.path.abspath(
     os.path.join(current_dir, "../../../ml/data/processed/cleaned_data.csv")
 )
+new_data_path = os.path.abspath(
+    os.path.join(current_dir, "../../../ml/data/processed/new_stations_data.csv")
+)
+stations_path = os.path.abspath(
+    os.path.join(current_dir, "../../../ml/data/processed/stations.csv")
+)
 
 if not os.path.exists(data_path):
     raise FileNotFoundError(f"AQI file not found at: {data_path}")
 
 df = pd.read_csv(data_path)
+
+# Load new stations if they exist
+new_df = pd.DataFrame()
+if os.path.exists(new_data_path):
+    new_df = pd.read_csv(new_data_path)
+    if 'station_norm' not in new_df.columns:
+        new_df['station_norm'] = new_df['STATION     NAME'].astype(str).str.lower().str.strip()
+
+# Load old stations for distance calculation
+old_stations_df = pd.DataFrame()
+if os.path.exists(stations_path):
+    old_stations_df = pd.read_csv(stations_path)
+    old_stations_df["latitude"] = pd.to_numeric(old_stations_df["latitude"], errors="coerce")
+    old_stations_df["longitude"] = pd.to_numeric(old_stations_df["longitude"], errors="coerce")
 
 # 🔥 CRITICAL FIX
 df.columns = df.columns.map(lambda x: str(x).strip().lower())
@@ -65,6 +86,59 @@ def get_current_aqi(station_name: str):
     print("Input station:", station_name)
 
     station_norm = normalize(station_name)
+
+    # =============================
+    # 0. CHECK NEW DATA (DATA.xlsx)
+    # =============================
+    if not new_df.empty:
+        new_station_data = new_df[new_df["station_norm"] == station_norm]
+        if not new_station_data.empty:
+            print("🌟 Found in NEW DATA! Interpolating AQI...")
+            new_row = new_station_data.iloc[0]
+            new_lat = new_row.get('Latitude')
+            new_lon = new_row.get('Longitude')
+            
+            fallback_aqi = None
+            if pd.notna(new_lat) and pd.notna(new_lon) and not old_stations_df.empty:
+                # Find nearest OLD station for AQI
+                latitudes = old_stations_df["latitude"].values
+                longitudes = old_stations_df["longitude"].values
+                distances = np.sqrt((latitudes - float(new_lat))**2 + (longitudes - float(new_lon))**2)
+                nearest_old_idx = np.argmin(distances)
+                nearest_old_station = old_stations_df.iloc[nearest_old_idx]["monitoring station"]
+                
+                print("Nearest old station for AQI:", nearest_old_station)
+                old_station_norm = normalize(nearest_old_station)
+                old_data = df[df["station_norm"] == old_station_norm]
+                if not old_data.empty:
+                    old_data = old_data.sort_values("date", ascending=False)
+                    fallback_aqi = old_data["aqi"].dropna().iloc[0] if not old_data["aqi"].dropna().empty else None
+
+            result = {
+                "aqi": float(fallback_aqi) if fallback_aqi else None,
+                "pm25": float(new_row.get("PM2.5")) if pd.notna(new_row.get("PM2.5")) else None,
+                "pm10": float(new_row.get("PM10")) if pd.notna(new_row.get("PM10")) else None,
+                "no2": float(new_row.get("NO2")) if pd.notna(new_row.get("NO2")) else None,
+                "so2": float(new_row.get("SO2")) if pd.notna(new_row.get("SO2")) else None,
+                "co": float(new_row.get("CO")) if pd.notna(new_row.get("CO")) else None,
+                "ozone": float(new_row.get("OZONE")) if pd.notna(new_row.get("OZONE")) else None,
+                "temp": float(new_row.get("TEMP")) if pd.notna(new_row.get("TEMP")) else None,
+                "rh": float(new_row.get("RH")) if pd.notna(new_row.get("RH")) else None,
+                "ws": float(new_row.get("WS")) if pd.notna(new_row.get("WS")) else None,
+                "city": str(new_row.get("City")) if pd.notna(new_row.get("City")) else "",
+                "state": str(new_row.get("State")) if pd.notna(new_row.get("State")) else ""
+            }
+            
+            # Apply same temperature logic
+            temp_val = result["temp"]
+            if temp_val is not None:
+                if temp_val < 20:
+                    result["temp"] += 20
+                elif temp_val < 30:
+                    result["temp"] += 10
+                    
+            print("✅ FINAL OUTPUT (NEW STATION + OLD AQI):", result)
+            return result
 
     # =============================
     # 1. EXACT MATCH
