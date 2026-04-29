@@ -32,6 +32,9 @@ def get_analysis(lat: float, lon: float):
     # 🔥 AI INSIGHTS
     ai = generate_ai_insights({
         **current,
+        "station": station,
+        "lat": lat,
+        "lon": lon,
         "city": current.get("city"),
         "pollutant": current.get("pollutant")
     })

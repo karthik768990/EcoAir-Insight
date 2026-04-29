@@ -20,11 +20,13 @@ def generate_ai_insights(data: dict) -> str:
     prompt = f"""
 You are an environmental expert.
 
-Given the air quality data:
+Given the air quality data for the following location:
+Location: {data.get("station")} (Lat: {data.get("lat")}, Lon: {data.get("lon")})
+City: {data.get("city")}
+
 AQI: {data.get("aqi")}
 PM2.5: {data.get("pm25")}
 PM10: {data.get("pm10")}
-City: {data.get("city")}
 Dominant Pollutant: {data.get("pollutant")}
 
 Provide:
