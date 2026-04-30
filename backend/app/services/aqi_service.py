@@ -114,6 +114,17 @@ def get_current_aqi(station_name: str):
                     old_data = old_data.sort_values("date", ascending=False)
                     fallback_aqi = old_data["aqi"].dropna().iloc[0] if not old_data["aqi"].dropna().empty else None
 
+            # 🌟 Fallback to prediction if no AQI is found
+            if not fallback_aqi:
+                try:
+                    from app.services.prediction_service import get_prediction
+                    preds = get_prediction(station_name)
+                    if preds and len(preds) > 0:
+                        fallback_aqi = preds[0]["aqi"]
+                        print(f"🌟 Override missing AQI with Prediction: {fallback_aqi}")
+                except Exception as e:
+                    print("Error fetching prediction fallback:", e)
+
             result = {
                 "aqi": float(fallback_aqi) if fallback_aqi else None,
                 "pm25": float(new_row.get("PM2.5")) if pd.notna(new_row.get("PM2.5")) else None,
@@ -176,9 +187,11 @@ def get_current_aqi(station_name: str):
     # =============================
     # 4. FINAL FALLBACK
     # =============================
+    global_fallback_triggered = False
     if station_data.empty:
         print("⚠️ Using global fallback...")
         station_data = df
+        global_fallback_triggered = True
 
     # =============================
     # SORT LATEST
@@ -201,6 +214,17 @@ def get_current_aqi(station_name: str):
     # CORE DATA
     # =============================
     aqi = safe_col("aqi")
+
+    if global_fallback_triggered:
+        try:
+            from app.services.prediction_service import get_prediction
+            preds = get_prediction(station_name)
+            if preds and len(preds) > 0:
+                aqi = preds[0]["aqi"]
+                print(f"🌟 Override global fallback 102 with Prediction: {aqi}")
+        except Exception as e:
+            print("Error fetching prediction fallback:", e)
+
     pm25 = safe_col("pm2.5")
     pm10 = safe_col("pm10")
     city = safe_col("city")

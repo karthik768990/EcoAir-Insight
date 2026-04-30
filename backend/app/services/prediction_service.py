@@ -55,3 +55,5 @@ def get_prediction(station_name: str):
         }
         for _, row in station_data.iterrows()
     ]
+
+# Trigger reload
