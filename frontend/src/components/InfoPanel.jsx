@@ -95,7 +95,7 @@ export default function InfoPanel({ data, onClose }) {
                   </div>
                   <div style={statBox}>
                     <span style={label}>Temp</span>
-                    <span style={value}>{current?.temp ? `${current.temp}°C` : "--"}</span>
+                    <span style={value}>{current?.temp ? `${(current.temp).toFixed(2)}°C` : "--"}</span>
                   </div>
                   <div style={statBox}>
                     <span style={label}>Humidity</span>

@@ -29,7 +29,9 @@ export default function PollutantPanel({ data }) {
       <div style={list}>
         {Object.values(pollutants).map((p, index) => (
           <div key={index} style={row}>
-            <span style={label}>{p.name}</span>
+            <span style={label}>
+              {p.name.toLowerCase() === "pm25" ? "PM 2.5" : p.name.toUpperCase()}
+            </span>
 
             <span style={value}>
               {p.value} µg/m³
@@ -50,7 +52,7 @@ export default function PollutantPanel({ data }) {
       {/*  Major Pollutant */}
       {major && (
         <div style={majorBox}>
-          <strong>Major Pollutant: {major.name}</strong>
+          <strong>Major Pollutant: {major.name.toLowerCase() === "pm25" ? "PM 2.5" : major.name.toUpperCase()}</strong>
           <div style={{ fontSize: "0.8rem", opacity: 0.8 }}>
             Ratio: {major.ratio}
           </div>
