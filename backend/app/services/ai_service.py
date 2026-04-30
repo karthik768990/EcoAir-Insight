@@ -2,15 +2,12 @@ import os
 from google import genai
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
 
-# Explicitly check for the key to ensure fail-safe startup
 api_key = os.getenv("GEMINI_API_KEY")
 if not api_key:
     raise ValueError("GEMINI_API_KEY not found in .env")
 
-# Initialize the Gemini client
 client = genai.Client(api_key=api_key)
 
 def generate_ai_insights(data: dict) -> str:
@@ -20,9 +17,7 @@ def generate_ai_insights(data: dict) -> str:
     prompt = f"""
 You are an environmental expert.
 
-Given the air quality data for the following location:
-Location: {data.get("station")} (Lat: {data.get("lat")}, Lon: {data.get("lon")})
-City: {data.get("city")}
+Given the air quality data for the location at Latitude: {data.get("lat")}, Longitude: {data.get("lon")}:
 
 AQI: {data.get("aqi")}
 PM2.5: {data.get("pm25")}
@@ -35,11 +30,10 @@ Provide:
 3. Recommended actions
 4. Future outlook
 
-Keep response short and structured.
+Keep response short and structured. Focus strictly on the provided coordinates and DO NOT mention specific city names, as the user has selected a precise map location.
 """
 
     try:
-        # The new SDK handles the routing and versioning automatically
         response = client.models.generate_content(
             model="gemini-2.5-flash-lite", 
             contents=prompt

@@ -10,7 +10,6 @@ from app.services.pollutant_analysis_service import analyze_pollutants
 
 app = FastAPI()
 
-# CORS (already added earlier but keeping clean)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -29,7 +28,6 @@ def get_analysis(lat: float, lon: float):
     prediction = get_prediction(station)
     health = get_aqi_health_info(current["aqi"])
 
-    # 🔥 AI INSIGHTS
     ai = generate_ai_insights({
         **current,
         "station": station,
