@@ -14,6 +14,5 @@ anthropic==0.51.0
 
 python-dotenv==1.1.0
  
-
+orjson
 google-genai==1.15.0
-google==3.0.0
