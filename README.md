@@ -149,12 +149,7 @@ uvicorn main:app --reload
 
 ---
 
-## 📸 Screenshots (To be added)
 
-* Dashboard view
-* Map interaction
-* AQI visualization
-* Prediction graphs
 
 ---
 
@@ -173,6 +168,3 @@ EcoAir Insight provides a comprehensive platform for understanding air pollution
 
 ---
 
-## 📄 License
-
-This project is developed as part of an academic assignment and is intended for educational purposes.
