@@ -23,4 +23,3 @@ aiofiles==24.1.0
 httpx==0.28.1
 
 orjson==3.10.18
-dotenv
