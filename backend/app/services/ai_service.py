@@ -17,7 +17,7 @@ def generate_ai_insights(data: dict) -> str:
     prompt = f"""
 You are an environmental expert.
 
-Given the air quality data for the location at Latitude: {data.get("lat")}, Longitude: {data.get("lon")}:
+Given the air quality data for the location is as follows:
 
 AQI: {data.get("aqi")}
 PM2.5: {data.get("pm25")}
