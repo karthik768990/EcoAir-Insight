@@ -84,20 +84,6 @@ System provides actionable suggestions based on pollution levels.
 
 ---
 
-## 👨‍👩‍👦 Team Contributions
-
-* **Frontend & UI/UX**
-  Designed and implemented the user interface, map integration, and data visualization.
-
-* **Machine Learning**
-  Data preprocessing, model training, and AQI prediction.
-
-* **Backend Development**
-  Built APIs, handled data processing, and integrated ML models.
-
-* **Integration & Testing**
-  Connected frontend and backend, performed testing, and ensured system stability.
-
 ---
 
 ## 📅 Development Timeline
@@ -127,7 +113,7 @@ System provides actionable suggestions based on pollution levels.
 ### Clone the repository
 
 ```bash
-git clone https://github.com/your-username/ecoair-insight.git
+git clone https://github.com/karthik768990/EcoAir-Insight.git
 cd ecoair-insight
 ```
 
