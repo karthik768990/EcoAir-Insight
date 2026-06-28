@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from services.data_service import get_nearest_station, get_station_payload, get_top_polluted
-from services.pollutant_analysis_service import analyze_pollutants
+from app.services.data_service import get_nearest_station, get_station_payload, get_top_polluted
+from app.services.pollutant_analysis_service import analyze_pollutants
 
 router = APIRouter()
 
@@ -44,16 +44,8 @@ def fetch_air_quality(lat: float, lon: float):
     result = get_station_payload(station_name)
 
     if not result:
-        return {
-    "location": {},
-    "current_data": {},
-    "prediction": [],
-    "health": {},
-    "ai_insights": "No data available"
-    }
+        raise HTTPException(status_code=404, detail="No AQI data available for the nearest station.")
 
-    print("Station requested:", station_name)
-    print("Rows found:", len(AQI_DF[AQI_DF['Monitoring Station'] == station_name]))    
     latest_data, predictions = result
     pollutant_analysis = analyze_pollutants({
     "pm25": latest_data.get('PM2.5 (ug/m3)'),

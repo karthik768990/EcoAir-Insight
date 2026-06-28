@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.routes.api import router as api_router
 from app.services.health_service import get_aqi_health_info
 from app.services.location_service import find_nearest_station
 from app.services.aqi_service import get_current_aqi
@@ -17,12 +18,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(api_router)
+
 @app.get('/')
 def get_hotroute():
     return {
-        status_code : 200,
-        Health : 'ok'
+        "status_code": 200,
+        "health": "ok"
     }
+
 @app.get("/analysis")
 def get_analysis(lat: float, lon: float):
     station = find_nearest_station(lat, lon)

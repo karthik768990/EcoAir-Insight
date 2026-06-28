@@ -1,14 +1,35 @@
 import os
-from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
-api_key = os.getenv("GEMINI_API_KEY")
-if not api_key:
-    raise ValueError("GEMINI_API_KEY not found in .env")
+try:
+    from google import genai
+except ImportError:
+    genai = None
 
-client = genai.Client(api_key=api_key)
+client = None
+
+
+def _get_genai_client():
+    global client
+    if client is not None:
+        return client
+
+    if genai is None:
+        return None
+
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        return None
+
+    try:
+        client = genai.Client(api_key=api_key)
+    except Exception as e:
+        print(f"Gemini client initialization failed: {e}")
+        client = None
+
+    return client
 
 def generate_ai_insights(data: dict) -> str:
     """
@@ -33,9 +54,13 @@ Provide:
 Keep response short and structured. Focus strictly on the provided coordinates and DO NOT mention specific city names, as the user has selected a precise map location.
 """
 
+    client = _get_genai_client()
+    if client is None:
+        return "AI insights currently unavailable."
+
     try:
         response = client.models.generate_content(
-            model="gemini-2.5-flash-lite", 
+            model="gemini-2.5-flash-lite",
             contents=prompt
         )
 
