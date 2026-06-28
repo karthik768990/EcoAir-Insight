@@ -7,7 +7,6 @@ from app.services.prediction_service import get_prediction
 from app.services.ai_service import generate_ai_insights
 from app.services.pollutant_analysis_service import analyze_pollutants
 
-
 app = FastAPI()
 
 app.add_middleware(
@@ -18,7 +17,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+@app.get('/')
+def get_hotroute():
+    return {
+        status_code : 200,
+        Health : 'ok'
+    }
 @app.get("/analysis")
 def get_analysis(lat: float, lon: float):
     station = find_nearest_station(lat, lon)
