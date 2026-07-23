@@ -45,4 +45,4 @@ jobs:
         GEMINI_API_KEY: dummy_key
       run: |
         cd backend
-        PYTHONPATH=.. pytest tests/
+        PYTHONPATH=. pytest tests/
