@@ -1,0 +1,25 @@
+# render.yaml
+
+databases:
+  - name: ecoair-db
+    databaseName: ecoair
+    user: ecoair_user
+    plan: free
+
+services:
+  - type: web
+  
+    name: ecoair-backend
+    env: docker
+    plan: free
+    region: oregon
+    dockerContext: .
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ecoair-db
+          property: connectionString
+      
+      - key: GEMINI_API_KEY
+        sync: false

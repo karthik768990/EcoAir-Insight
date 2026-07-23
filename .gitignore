@@ -39,10 +39,9 @@ dist/
 # =========================
 ml/data/raw/
 ml/data/intermediate/
-
-# ⚠️ Keep ONLY processed data if needed
-# (optional: comment next line if you want to include it)
-# ml/data/processed/
+ml/data/cleaned_data/
+ml/data/processed/
+!ml/data/processed/.gitkeep
 
 # =========================
 # ⚛️ FRONTEND (REACT / VITE)

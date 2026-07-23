@@ -1,59 +1,32 @@
-import pandas as pd
-import os
+from sqlalchemy.orm import Session
+from app.models import Station, Prediction
+import re
 
-# 🔥 Resolve path
-current_dir = os.path.dirname(os.path.abspath(__file__))
+def normalize(text):
+    if not text: return ""
+    return re.sub(r"[^a-z0-9 ]", "", str(text).lower().strip())
 
-data_path = os.path.abspath(
-    os.path.join(current_dir, "../../../ml/data/processed/predictions_5yr_advanced.csv")
-)
-
-if not os.path.exists(data_path):
-    raise FileNotFoundError(f"Prediction file not found at: {data_path}")
-
-# 🔥 Load once
-df = pd.read_csv(data_path)
-
-# 🔥 Normalize columns
-df.columns = df.columns.str.strip()
-
-# 🔥 Rename to clean schema
-df.rename(columns={
-    "Monitoring Station": "station",
-    "Month_Ahead": "month",
-    "Predicted_AQI": "aqi",
-    "Lower_Bound": "lower",
-    "Upper_Bound": "upper"
-}, inplace=True)
-
-# 🔥 Clean station names
-df["station"] = df["station"].astype(str).str.strip().str.lower()
-
-
-def get_prediction(station_name: str):
-    """
-    Returns AQI prediction with bounds
-    """
-
-    station_name = station_name.strip().lower()
-
-    # 🔥 Flexible matching (VERY IMPORTANT)
-    station_data = df[df["station"].str.contains(station_name, na=False)]
-
-    if station_data.empty:
+def get_prediction(station_name: str, db: Session):
+    station_norm = normalize(station_name)
+    
+    # Try exact match
+    station = db.query(Station).filter_by(name_norm=station_norm).first()
+    
+    # Try partial
+    if not station:
+        station = db.query(Station).filter(Station.name_norm.like(f"%{station_norm}%")).first()
+        
+    if not station:
         return []
-
-    # ✅ Correct column
-    station_data = station_data.sort_values(by="month")
-
+        
+    preds = db.query(Prediction).filter_by(station_id=station.id).order_by(Prediction.month_ahead).all()
+    
     return [
         {
-            "month": int(row["month"]),
-            "aqi": float(row["aqi"]),
-            "lower": float(row["lower"]),
-            "upper": float(row["upper"])
+            "month": p.month_ahead,
+            "aqi": p.predicted_aqi,
+            "lower": p.lower_bound,
+            "upper": p.upper_bound
         }
-        for _, row in station_data.iterrows()
+        for p in preds
     ]
-
-# Trigger reload

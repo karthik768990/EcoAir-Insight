@@ -10,7 +10,6 @@ except ImportError:
 
 client = None
 
-
 def _get_genai_client():
     global client
     if client is not None:
@@ -33,25 +32,28 @@ def _get_genai_client():
 
 def generate_ai_insights(data: dict) -> str:
     """
-    Generate environmental insights using Gemini 1.5 Flash.
+    Generate environmental insights using Gemini.
     """
     prompt = f"""
-You are an environmental expert.
+You are an expert environmental scientist. Provide a highly professional, objective, and concise analysis based on the following air quality data:
 
-Given the air quality data for the location is as follows:
-
+Location Context: Coordinates only (do not guess city names).
 AQI: {data.get("aqi")}
 PM2.5: {data.get("pm25")}
 PM10: {data.get("pm10")}
 Dominant Pollutant: {data.get("pollutant")}
 
-Provide:
-1. Causes of pollution
-2. Health risks
-3. Recommended actions
-4. Future outlook
+Structure your response with the following headers:
+1. Causes of Pollution
+2. Health Risks
+3. Recommended Actions
+4. Future Outlook
 
-Keep response short and structured. Focus strictly on the provided coordinates and DO NOT mention specific city names, as the user has selected a precise map location.
+Constraints:
+- Maintain a formal, scientific tone.
+- Do not use emojis or exclamation marks.
+- Be extremely concise (maximum 3 sentences per section).
+- Focus only on the provided data and scientifically established facts.
 """
 
     client = _get_genai_client()
@@ -68,4 +70,4 @@ Keep response short and structured. Focus strictly on the provided coordinates a
 
     except Exception as e:
         print(f"Gemini error: {e}")
-        return "AI insights currently unavailable."
+        return "AI insights currently unavailable."

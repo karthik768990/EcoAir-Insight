@@ -75,20 +75,26 @@ def analyze_pollutants(aqi_data: dict):
         if result:
             analysis_results[key] = result
 
-            # 🔥 Find dominant pollutant
             if result["ratio"] > max_ratio:
                 max_ratio = result["ratio"]
                 major_pollutant = result
 
-    # 🔥 Explanation logic
+    #  Explanation logic
     explanation = None
     if major_pollutant:
-        explanation = (
-            f"{major_pollutant['name']} is the dominant pollutant because its "
-            f"concentration ({major_pollutant['value']} µg/m³) exceeds the safe limit "
-            f"({major_pollutant['standard']}) by a factor of {major_pollutant['ratio']}. "
-            f"This makes it the most significant contributor to the AQI."
-        )
+        if major_pollutant['ratio'] > 1:
+            explanation = (
+                f"{major_pollutant['name']} is the dominant pollutant because its "
+                f"concentration ({major_pollutant['value']} µg/m³) exceeds the safe limit "
+                f"({major_pollutant['standard']}) by a factor of {round(major_pollutant['ratio'], 1)}. "
+                f"This makes it the most significant contributor to the AQI."
+            )
+        else:
+            explanation = (
+                f"{major_pollutant['name']} is the dominant pollutant with a "
+                f"concentration of {major_pollutant['value']} µg/m³, which is within the safe limit "
+                f"({major_pollutant['standard']}). No pollutants are currently exceeding safe limits."
+            )
 
     return {
         "pollutants": analysis_results,

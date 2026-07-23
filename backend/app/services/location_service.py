@@ -1,50 +1,26 @@
-import pandas as pd
-import os
-import numpy as np
+from sqlalchemy.orm import Session
+from app.models import Station
+import math
 
-current_dir = os.path.dirname(os.path.abspath(__file__))
-
-data_path = os.path.abspath(
-    os.path.join(current_dir, "../../../ml/data/processed/stations.csv")
-)
-
-if not os.path.exists(data_path):
-    raise FileNotFoundError(f"Stations file not found at: {data_path}")
-
-stations_df = pd.read_csv(data_path)
-
-# 🔥 FIX: Convert to numeric
-stations_df["latitude"] = pd.to_numeric(stations_df["latitude"], errors="coerce")
-stations_df["longitude"] = pd.to_numeric(stations_df["longitude"], errors="coerce")
-
-# Optional: drop bad rows
-stations_df = stations_df.dropna(subset=["latitude", "longitude"])
-
-# 🔥 Load new geocoded stations if they exist
-new_data_path = os.path.abspath(
-    os.path.join(current_dir, "../../../ml/data/processed/new_stations_data.csv")
-)
-if os.path.exists(new_data_path):
-    try:
-        new_df = pd.read_csv(new_data_path)
-        new_stations = pd.DataFrame({
-            "monitoring station": new_df["STATION     NAME"],
-            "latitude": pd.to_numeric(new_df["Latitude"], errors="coerce"),
-            "longitude": pd.to_numeric(new_df["Longitude"], errors="coerce"),
-        })
-        new_stations = new_stations.dropna(subset=["latitude", "longitude"])
-        new_stations = new_stations.drop_duplicates(subset=["monitoring station"])
-        stations_df = pd.concat([stations_df, new_stations], ignore_index=True)
-    except Exception as e:
-        print("Error loading new stations:", e)
-
-
-def find_nearest_station(lat, lon):
-    latitudes = stations_df["latitude"].values
-    longitudes = stations_df["longitude"].values
-
-    distances = np.sqrt((latitudes - lat)**2 + (longitudes - lon)**2)
-
-    idx = np.argmin(distances)
-
-    return stations_df.iloc[idx]["monitoring station"]
+def find_nearest_station(lat: float, lon: float, db: Session):
+    stations = db.query(Station).all()
+    if not stations:
+        return None
+        
+    nearest_station = None
+    min_dist = float('inf')
+    
+    for st in stations:
+        # Haversine distance
+        lat_rad, lon_rad = math.radians(st.latitude), math.radians(st.longitude)
+        ulat_rad, ulon_rad = math.radians(lat), math.radians(lon)
+        dlat = lat_rad - ulat_rad
+        dlon = lon_rad - ulon_rad
+        a = math.sin(dlat / 2)**2 + math.cos(ulat_rad) * math.cos(lat_rad) * math.sin(dlon / 2)**2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        dist = 6371.0 * c
+        if dist < min_dist:
+            min_dist = dist
+            nearest_station = st
+            
+    return nearest_station.name if nearest_station else None

@@ -1,6 +1,8 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
 from app.services.data_service import get_nearest_station, get_station_payload, get_top_polluted
 from app.services.pollutant_analysis_service import analyze_pollutants
+from app.database import get_db
 
 router = APIRouter()
 
@@ -14,7 +16,7 @@ CAUSES = {
     "CO": "Incomplete combustion of fuels from vehicles."
 }
 
-# ✨ NEW: Actionable steps to actively REDUCE the pollution (Systemic/Individual)
+# Actionable steps to actively REDUCE the pollution (Systemic/Individual)
 REDUCTION_TIPS = {
     "PM2.5": ["Use public transport.", "Avoid burning garbage or wood.", "Transition to electric vehicles."],
     "PM10": ["Cover open construction sites.", "Pave dirt roads.", "Plant broad-leaf dust-absorbing trees (e.g., Neem)."],
@@ -36,25 +38,26 @@ def get_health_intelligence(aqi):
     elif aqi <= 400: return "Very Poor", "Respiratory illness on prolonged exposure. Avoid outdoors."
     else: return "Severe", "Healthy people will be affected. Stop all outdoor physical activities."
 
-# --- Existing Route (Expanded with Reduction Tips) ---
 @router.get("/api/aqi")
-
-def fetch_air_quality(lat: float, lon: float):
-    station_name, distance_km = get_nearest_station(lat, lon)
-    result = get_station_payload(station_name)
+def fetch_air_quality(lat: float, lon: float, db: Session = Depends(get_db)):
+    station_name, distance_km = get_nearest_station(lat, lon, db)
+    if not station_name:
+        raise HTTPException(status_code=404, detail="No stations found in the database.")
+        
+    result = get_station_payload(station_name, db)
 
     if not result:
         raise HTTPException(status_code=404, detail="No AQI data available for the nearest station.")
 
     latest_data, predictions = result
     pollutant_analysis = analyze_pollutants({
-    "pm25": latest_data.get('PM2.5 (ug/m3)'),
-    "pm10": latest_data.get('PM10 (ug/m3)'),
-    "no2": latest_data.get('NO2'),
-    "so2": latest_data.get('SO2'),
-    "co": latest_data.get('CO'),
-    "ozone": latest_data.get('OZONE')
-})
+        "pm25": latest_data.get('PM2.5 (ug/m3)'),
+        "pm10": latest_data.get('PM10 (ug/m3)'),
+        "no2": latest_data.get('NO2'),
+        "so2": latest_data.get('SO2'),
+        "co": latest_data.get('CO'),
+        "ozone": latest_data.get('OZONE')
+    })
     
     aqi_val = latest_data.get('AQI', 0)
     primary_pollutant = latest_data.get('Highest Pollutant', 'PM2.5')
@@ -68,16 +71,12 @@ def fetch_air_quality(lat: float, lon: float):
             "state": latest_data.get('State', 'Unknown')
         },
         "current_data": {
-    "aqi": aqi_val,
-
-    "pollutants": pollutant_analysis["pollutants"],
-
-    "major_pollutant": pollutant_analysis["major_pollutant"],
-
-    "explanation": pollutant_analysis["explanation"],
-
-    "date_recorded": str(latest_data.get('Date', 'N/A'))
-},
+            "aqi": aqi_val,
+            "pollutants": pollutant_analysis["pollutants"],
+            "major_pollutant": pollutant_analysis["major_pollutant"],
+            "explanation": pollutant_analysis["explanation"],
+            "date_recorded": str(latest_data.get('Date', 'N/A'))
+        },
         "intelligence": {
             "primary_cause": CAUSES.get(primary_pollutant, "General urban pollution mix."),
             "health_risk_level": risk_level,
@@ -87,11 +86,10 @@ def fetch_air_quality(lat: float, lon: float):
         "ml_predictions_1yr": predictions 
     }
 
-# --- ✨ NEW ROUTE: Top Polluted Locations in India ---
 @router.get("/api/top-locations")
-def fetch_top_polluted(limit: int = 5):
+def fetch_top_polluted(limit: int = 5, db: Session = Depends(get_db)):
     """Returns the top N most polluted locations in India right now."""
-    top_data = get_top_polluted(limit)
+    top_data = get_top_polluted(db, limit)
     return {
         "title": f"Top {limit} Most Polluted Locations",
         "data": top_data

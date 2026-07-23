@@ -1,74 +1,90 @@
-import pandas as pd
-import numpy as np
-import os
+from sqlalchemy.orm import Session
+from sqlalchemy import func
+from app.database import engine
+from app.models import Station, HistoricAQI, Prediction
+import math
 
-BASE_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "../../../")
-)
-
-print("Loading ML Data into Backend...")
-
-DATA_DIR = os.path.join(BASE_DIR,"ml/data/cleaned_data")
-# Absolute path to where your ML model saved the data
-
-try:
-    STATIONS_DF = pd.read_csv(os.path.join(DATA_DIR, 'stations.csv'))
-    AQI_DF = pd.read_csv(os.path.join(DATA_DIR, 'cleaned_data.csv'))
-    PREDICTIONS_DF = pd.read_csv(os.path.join(DATA_DIR, 'predictions_1yr.csv'))
+def get_nearest_station(user_lat, user_lon, db: Session):
+    # Retrieve all stations to find the nearest (Haversine done in Python for SQLite compatibility)
+    stations = db.query(Station).all()
+    if not stations:
+        return None, float('inf')
+        
+    nearest_station = None
+    min_dist = float('inf')
     
-    # Ensure Date is a proper datetime object for sorting
-    AQI_DF['Date'] = pd.to_datetime(AQI_DF['Date'])
-    print("✅ Data loaded successfully!")
-except FileNotFoundError as e:
-    print(f"❌ ERROR: Could not find data files. Make sure the paths are correct. {e}")
+    for st in stations:
+        lat_rad, lon_rad = math.radians(st.latitude), math.radians(st.longitude)
+        ulat_rad, ulon_rad = math.radians(user_lat), math.radians(user_lon)
+        dlat = lat_rad - ulat_rad
+        dlon = lon_rad - ulon_rad
+        a = math.sin(dlat / 2)**2 + math.cos(ulat_rad) * math.cos(lat_rad) * math.sin(dlon / 2)**2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        dist = 6371.0 * c
+        if dist < min_dist:
+            min_dist = dist
+            nearest_station = st
+            
+    return nearest_station.name, min_dist
 
-def haversine_distance(lat1, lon1, lat2, lon2):
-    R = 6371.0 
-    lat1_rad, lon1_rad = np.radians(lat1), np.radians(lon1)
-    lat2_rad, lon2_rad = np.radians(lat2), np.radians(lon2)
-    dlat = lat2_rad - lat1_rad
-    dlon = lon2_rad - lon1_rad
-    a = np.sin(dlat / 2)**2 + np.cos(lat1_rad) * np.cos(lat2_rad) * np.sin(dlon / 2)**2
-    c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a))
-    return R * c
+def get_station_payload(station_name: str, db: Session):
+    station = db.query(Station).filter_by(name=station_name).first()
+    if not station:
+        return None
+        
+    # Get latest history
+    latest_history = db.query(HistoricAQI).filter_by(station_id=station.id).order_by(HistoricAQI.date.desc()).first()
+    if not latest_history:
+        return None
+        
+    # Format dict
+    latest_dict = {
+        'Monitoring Station': station.name,
+        'City': station.city or 'N/A',
+        'State': station.state or 'N/A',
+        'Date': latest_history.date.strftime('%Y-%m-%d') if latest_history.date else 'N/A',
+        'AQI': latest_history.aqi or 'N/A',
+        'PM2.5 (ug/m3)': latest_history.pm25 or 'N/A',
+        'PM10 (ug/m3)': latest_history.pm10 or 'N/A',
+        'NO2': latest_history.no2 or 'N/A',
+        'SO2': latest_history.so2 or 'N/A',
+        'CO': latest_history.co or 'N/A',
+        'OZONE': latest_history.ozone or 'N/A',
+        'Highest Pollutant': 'PM2.5' # simplified for backward compatibility
+    }
+    
+    preds = db.query(Prediction).filter_by(station_id=station.id).order_by(Prediction.month_ahead).all()
+    predictions_list = [p.predicted_aqi for p in preds]
+    
+    return latest_dict, predictions_list
 
-def get_nearest_station(user_lat, user_lon):
-    distances = haversine_distance(user_lat, user_lon, STATIONS_DF['Latitude'].values, STATIONS_DF['Longitude'].values)
-    nearest_idx = np.argmin(distances)
-    nearest_station = STATIONS_DF.iloc[nearest_idx]
-    return nearest_station['Monitoring Station'], distances[nearest_idx]
-
-def get_station_payload(station_name):
-    station_history = AQI_DF[AQI_DF['Monitoring Station'] == station_name]
-    if station_history.empty: return None
+def get_top_polluted(db: Session, limit=5):
+    # We use a subquery to find the latest date per station
+    subq = db.query(
+        HistoricAQI.station_id,
+        func.max(HistoricAQI.date).label('maxdate')
+    ).group_by(HistoricAQI.station_id).subquery('t2')
     
-    # Get the latest row and fill missing values so JSON doesn't break
-    latest_row = station_history.iloc[-1].fillna("N/A").to_dict()
+    # Join to get the actual records
+    query = db.query(HistoricAQI, Station).join(
+        Station, HistoricAQI.station_id == Station.id
+    ).join(
+        subq, (HistoricAQI.station_id == subq.c.station_id) & (HistoricAQI.date == subq.c.maxdate)
+    ).order_by(HistoricAQI.aqi.desc()).limit(limit)
     
-    station_preds = PREDICTIONS_DF[PREDICTIONS_DF['Monitoring Station'] == station_name]
-    predictions_list = station_preds['Predicted_AQI'].tolist() if not station_preds.empty else []
-    
-    return latest_row, predictions_list
-
-# ✨ NEW FUNCTION: Get the Top Polluted Places in India right now
-def get_top_polluted(limit=5):
-    # Sort chronologically, then keep only the LAST (most recent) record for each station
-    latest_snapshot = AQI_DF.sort_values('Date').drop_duplicates('Monitoring Station', keep='last')
-    
-    # Find the top 'limit' stations with the highest AQI
-    top_stations = latest_snapshot.nlargest(limit, 'AQI')
-    
+    top_records = query.all()
     results = []
-    for _, row in top_stations.iterrows():
-        # Grab predictions for these top places too
-        preds = PREDICTIONS_DF[PREDICTIONS_DF['Monitoring Station'] == row['Monitoring Station']]['Predicted_AQI'].tolist()
+    
+    for aqi_rec, st in top_records:
+        preds = db.query(Prediction).filter_by(station_id=st.id).order_by(Prediction.month_ahead).all()
         results.append({
-            "station": row['Monitoring Station'],
-            "city": row['City'],
-            "state": row['State'],
-            "current_aqi": row['AQI'],
-            "primary_pollutant": row['Highest Pollutant'],
-            "date": row['Date'].strftime('%Y-%m-%d'),
-            "predictions_1yr": preds
+            "station": st.name,
+            "city": st.city,
+            "state": st.state,
+            "current_aqi": aqi_rec.aqi,
+            "primary_pollutant": "PM2.5", # simplified
+            "date": aqi_rec.date.strftime('%Y-%m-%d') if aqi_rec.date else "",
+            "predictions_1yr": [p.predicted_aqi for p in preds][:12] # return 1yr (12 months)
         })
+        
     return results
