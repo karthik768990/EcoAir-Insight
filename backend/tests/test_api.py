@@ -1,17 +1,21 @@
 import pytest
+import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.database import Base, get_db
+import os
+os.environ["TESTING"] = "1"
 from app.main import app
 from fastapi.testclient import TestClient
 import os
 
 # Use a test database
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
+SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, 
-    connect_args={"check_same_thread": False} if "sqlite" in SQLALCHEMY_DATABASE_URL else {}
+    connect_args={"check_same_thread": False},
+    poolclass=sqlalchemy.pool.StaticPool
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
@@ -38,4 +42,4 @@ def test_analysis_no_station():
     response = client.get("/analysis?lat=0.0&lon=0.0")
     # Our data_service haversine will pick the closest but since the DB is empty, it returns none
     assert response.status_code == 200
-    assert response.json() == {"error": "No station found near these coordinates."}
+    assert response.json() == {"data_unavailable": True}

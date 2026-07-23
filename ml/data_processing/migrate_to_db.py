@@ -6,9 +6,10 @@ from sqlalchemy.orm import sessionmaker
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 sys.path.append(BASE_DIR)
+sys.path.append(os.path.join(BASE_DIR, "backend"))
 
-from backend.app.models import Station, HistoricAQI, Prediction
-from backend.app.database import engine, Base
+from app.models import Station, HistoricAQI, Prediction
+from app.database import engine, Base
 
 Session = sessionmaker(bind=engine)
 

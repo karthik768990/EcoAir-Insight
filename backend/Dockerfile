@@ -2,7 +2,7 @@
 FROM python:3.11-slim as builder
 
 WORKDIR /app
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 # Stage 2: Runtime
@@ -14,7 +14,11 @@ COPY --from=builder /root/.local /root/.local
 # Ensure local bin is in PATH
 ENV PATH=/root/.local/bin:$PATH
 
-COPY . /app
+# Copy backend app
+COPY backend/app ./app
+
+# Copy ML data processing (for migration script and CSVs)
+COPY ml ./ml
 
 EXPOSE 8000
 

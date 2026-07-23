@@ -8,6 +8,63 @@ export default function InfoPanel({ data, onClose }) {
   const [activeTab, setActiveTab] = useState("overview");
 
   if (!data) return null;
+  
+  if (data.error) {
+    return (
+      <div style={{ ...containerStyle, padding: "20px", textAlign: "center" }}>
+        <h3 style={{ color: "#ef4444", marginBottom: "10px" }}>No Data Available</h3>
+        <p style={{ opacity: 0.8, fontSize: "0.95rem" }}>{data.error}</p>
+        <button 
+          onClick={onClose} 
+          style={{ 
+            marginTop: "20px", 
+            padding: "8px 16px", 
+            background: "rgba(255,255,255,0.1)", 
+            color: "#fff", 
+            border: "none", 
+            borderRadius: "6px", 
+            cursor: "pointer" 
+          }}>
+          Close
+        </button>
+      </div>
+    );
+  }
+
+  if (data.data_unavailable) {
+    return (
+      <div style={{ ...containerStyle, padding: "24px", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+        <div style={{ background: "rgba(148, 163, 184, 0.1)", padding: "20px", borderRadius: "16px", border: "1px solid rgba(148, 163, 184, 0.2)", maxWidth: "320px" }}>
+          <h3 style={{ color: "#94a3b8", marginBottom: "8px", fontSize: "1.3rem" }}>Data Unavailable</h3>
+          <div style={{ margin: "16px 0", padding: "12px", background: "rgba(15, 23, 42, 0.5)", borderRadius: "8px" }}>
+             <span style={{ fontSize: "0.85rem", color: "#64748b", textTransform: "uppercase", letterSpacing: "1px" }}>AQI Status</span>
+             <div style={{ fontSize: "1.2rem", fontWeight: "bold", color: "#cbd5e1", marginTop: "4px" }}>Nominal / Unknown</div>
+          </div>
+          <p style={{ opacity: 0.8, fontSize: "0.9rem", lineHeight: "1.5", color: "#e2e8f0" }}>
+            Environmental monitoring data is currently unavailable for this location. We could not find a nearby monitoring station within the selected state. 
+          </p>
+          <p style={{ opacity: 0.6, fontSize: "0.85rem", lineHeight: "1.4", color: "#94a3b8", marginTop: "12px" }}>
+            This does not indicate unhealthy conditions—it simply means verified measurements are not currently available.
+          </p>
+          <button 
+            onClick={onClose} 
+            style={{ 
+              marginTop: "24px", 
+              padding: "10px 24px", 
+              background: "rgba(255,255,255,0.05)", 
+              color: "#fff", 
+              border: "1px solid rgba(255,255,255,0.1)", 
+              borderRadius: "8px", 
+              cursor: "pointer",
+              transition: "background 0.2s"
+            }}>
+            Close Panel
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const current = data.current || {};
 
   const getAQIColor = (aqi) => {
@@ -39,6 +96,13 @@ export default function InfoPanel({ data, onClose }) {
         </div>
         <button onClick={onClose} style={closeBtnStyle}>✕</button>
       </div>
+      
+      {data.is_fallback && (
+        <div style={{ background: "rgba(234, 179, 8, 0.15)", padding: "8px 16px", borderBottom: "1px solid rgba(234, 179, 8, 0.3)", display: "flex", alignItems: "center", gap: "8px" }}>
+          <span style={{ fontSize: "1rem" }}>⚠️</span>
+          <span style={{ fontSize: "0.85rem", color: "#fde047", fontWeight: "500" }}>Showing data from nearest available station ({data.distance_km}km away)</span>
+        </div>
+      )}
 
       {/* 🟢 TABS NAVIGATION */}
       <div style={tabsContainerStyle}>
