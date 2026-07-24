@@ -86,10 +86,10 @@ def migrate_stations(session):
     print("Stations migrated successfully.")
 
 def migrate_historical_aqi(session):
-    print("Clearing existing historical AQI data to avoid duplicates...")
-    session.query(HistoricAQI).delete()
-    session.commit()
-    print("Migrating historical AQI data...")
+    # Calculate how many rows are already in the DB to resume
+    existing_count = session.query(HistoricAQI).count()
+    print(f"Found {existing_count} existing historical AQI records. Resuming from this point...")
+    
     cleaned_path = os.path.join(BASE_DIR, "ml/data/processed/cleaned_data.csv")
     if not os.path.exists(cleaned_path):
         print("No cleaned_data.csv found. Generating it now from raw data...")
@@ -102,6 +102,11 @@ def migrate_historical_aqi(session):
 
     df = pd.read_csv(cleaned_path)
     df.columns = df.columns.map(lambda x: str(x).strip().lower())
+    
+    # Skip already inserted rows
+    if existing_count > 0:
+        df = df.iloc[existing_count:]
+        print(f"Skipping {existing_count} rows. {len(df)} rows left to insert.")
     
     # Pre-fetch stations
     stations = {s.name_norm: s.id for s in session.query(Station).all()}
