@@ -82,6 +82,8 @@ def get_analysis(lat: float, lon: float, db: Session = Depends(get_db)):
     location_data = find_nearest_station_with_data(lat, lon, db)
     
     if location_data.get("data_unavailable"):
+        if "error" in location_data:
+            return {"error": location_data["error"]}
         return {"data_unavailable": True}
 
     station_obj = location_data["station"]

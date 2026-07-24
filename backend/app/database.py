@@ -1,7 +1,12 @@
 import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
+
+# Load .env file explicitly
+env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env")
+load_dotenv(env_path)
 
 # Default to SQLite for local fallback if DATABASE_URL is not set
 DATABASE_URL = os.getenv(

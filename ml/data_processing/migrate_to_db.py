@@ -86,11 +86,19 @@ def migrate_stations(session):
     print("Stations migrated successfully.")
 
 def migrate_historical_aqi(session):
+    print("Clearing existing historical AQI data to avoid duplicates...")
+    session.query(HistoricAQI).delete()
+    session.commit()
     print("Migrating historical AQI data...")
     cleaned_path = os.path.join(BASE_DIR, "ml/data/processed/cleaned_data.csv")
     if not os.path.exists(cleaned_path):
-        print("No cleaned_data.csv found.")
-        return
+        print("No cleaned_data.csv found. Generating it now from raw data...")
+        sys.path.append(os.path.join(BASE_DIR, "ml/data_processing"))
+        from process_raw_data import process_raw_data
+        process_raw_data()
+        if not os.path.exists(cleaned_path):
+            print("Failed to generate cleaned_data.csv. Aborting migration.")
+            return
 
     df = pd.read_csv(cleaned_path)
     df.columns = df.columns.map(lambda x: str(x).strip().lower())

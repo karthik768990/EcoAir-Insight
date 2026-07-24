@@ -19,4 +19,5 @@ google-genai==1.15.0
 google==3.0.0
 sqlalchemy
 psycopg2-binary
-pytest
+pytest
+tqdm

@@ -10,10 +10,13 @@ from tqdm import tqdm
 warnings.filterwarnings("ignore")
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
 sys.path.append(BASE_DIR)
+sys.path.append(ROOT_DIR)
+sys.path.append(os.path.join(ROOT_DIR, "backend"))
 
-from backend.app.database import engine
-from backend.app.models import Station, Prediction
+from app.database import engine
+from app.models import Station, Prediction
 from sqlalchemy.orm import sessionmaker
 
 # =============================
@@ -115,6 +118,12 @@ def train_and_predict():
 
     print("Loading dataset...")
     df = pd.read_csv(data_path)
+    df = df.rename(columns={
+        "date": "Date", 
+        "aqi": "AQI", 
+        "monitoring station": "Monitoring Station",
+        "station": "Monitoring Station"
+    })
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
     df = df.dropna(subset=["Date", "AQI", "Monitoring Station"])
 

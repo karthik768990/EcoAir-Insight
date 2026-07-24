@@ -127,10 +127,18 @@ npm run dev
 
 ### Backend setup
 
+> [!IMPORTANT]
+> **Cloud Database Requirement**
+> This application relies exclusively on a managed cloud PostgreSQL database. Before starting the backend, you must configure your `.env` file with your cloud connection string:
+> 
+> ```env
+> DATABASE_URL=postgresql://user:password@your-cloud-host.com:5432/dbname
+> ```
+
 ```bash
 cd backend
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 ---
