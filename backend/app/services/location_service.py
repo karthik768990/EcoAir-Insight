@@ -14,7 +14,7 @@ def haversine(lat1, lon1, lat2, lon2):
 def find_nearest_station_with_data(lat: float, lon: float, db: Session):
     stations = db.query(Station).all()
     if not stations:
-        return {"data_unavailable": True, "error": "Database is empty. Please wait for initial data seeding."}
+        return {"data_unavailable": True}
 
     nearest_station = None
     min_dist = float('inf')
